@@ -1,0 +1,102 @@
+{
+    "name": {
+        "ar": "جمالية وإبداع",
+        "en": "Aesthetics and Creativity"
+    },
+    "description": {
+        "ar": "",
+        "en": ""
+    },
+    "author_email": "c.ilyes@crococoder.tn",
+    "support_url": "",
+    "repository": "https://github.com/TahaLeGen/tw-aesthetics-and-creativity",
+    "components": [
+        {
+            "title": "Links",
+            "icon": "sicon-layout-grid",
+            "name": "links",
+            "key": "2dea768e-8033-44ce-ad7b-1298791fbe1d",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "title",
+                    "icon": "sicon-format-text-alt",
+                    "type": "string",
+                    "label": "Title",
+                    "format": "text",
+                    "required": true,
+                    "placeholder": "Enter component title...",
+                    "value": "Links"
+                },
+                {
+                    "id": "content",
+                    "icon": "sicon-paragraph",
+                    "type": "string",
+                    "label": "Content",
+                    "format": "textarea",
+                    "required": false,
+                    "placeholder": "Enter component content...",
+                    "value": "This is a new Links component"
+                }
+            ]
+        },
+        {
+            "title": "Announcement Bar",
+            "icon": "sicon-layout-grid",
+            "name": "announcement-bar",
+            "key": "651c579b-1a1b-4218-aade-124dae99e1f2",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "title",
+                    "icon": "sicon-format-text-alt",
+                    "type": "string",
+                    "label": "Title",
+                    "format": "text",
+                    "required": true,
+                    "placeholder": "Enter component title...",
+                    "value": "Announcement Bar"
+                },
+                {
+                    "id": "content",
+                    "icon": "sicon-paragraph",
+                    "type": "string",
+                    "label": "Content",
+                    "format": "textarea",
+                    "required": false,
+                    "placeholder": "Enter component content...",
+                    "value": "This is a new Announcement Bar component"
+                }
+            ]
+        },
+        {
+            "title": "Flash Sale Banners",
+            "icon": "sicon-layout-grid",
+            "name": "flash-sale-banners",
+            "key": "68fd762b-2af5-42fe-99b8-f32368bccb12",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "title",
+                    "icon": "sicon-format-text-alt",
+                    "type": "string",
+                    "label": "Title",
+                    "format": "text",
+                    "required": true,
+                    "placeholder": "Enter component title...",
+                    "value": "Flash Sale Banners"
+                },
+                {
+                    "id": "content",
+                    "icon": "sicon-paragraph",
+                    "type": "string",
+                    "label": "Content",
+                    "format": "textarea",
+                    "required": false,
+                    "placeholder": "Enter component content...",
+                    "value": "This is a new Flash Sale Banners component"
+                }
+            ]
+        }
+    ]
+}
