@@ -39,6 +39,7 @@
                     "value": "This is a new Links component"
                 }
             ]
+<<<<<<< HEAD
         },
         {
             "title": "Announcement Bar",
@@ -97,6 +98,8 @@
                     "value": "This is a new Flash Sale Banners component"
                 }
             ]
+=======
+>>>>>>> 4125922837bfdeffbf26701a1494c5f9104f1e11
         }
     ]
 }

@@ -7,7 +7,11 @@ export default defineConfig({
     sallaBuildPlugin(),
     sallaDemoPlugin({
       // Show only specific components
+<<<<<<< HEAD
       components: ["links","announcement-bar","flash-sale-banners"],
+=======
+      components: ["links"],
+>>>>>>> 4125922837bfdeffbf26701a1494c5f9104f1e11
       
       // Customize grid layout
       grid: {
