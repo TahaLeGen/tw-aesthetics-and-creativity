@@ -1,31 +1,24 @@
-var c = Object.defineProperty;
-var d = (i, t, e) => t in i ? c(i, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : i[t] = e;
-var l = (i, t, e) => d(i, typeof t != "symbol" ? t + "" : t, e);
-import { LitElement as p, css as f, html as h } from "lit";
-import { property as k } from "lit/decorators.js";
-var m = Object.defineProperty, g = (i, t, e, o) => {
-  for (var n = void 0, r = i.length - 1, a; r >= 0; r--)
-    (a = i[r]) && (n = a(t, e, n) || n);
-  return n && m(t, e, n), n;
+import { LitElement as a, css as c, html as d } from "lit";
+import { property as p } from "lit/decorators.js";
+var f = Object.defineProperty, h = (r, e, i, m) => {
+  for (var t = void 0, s = r.length - 1, l; s >= 0; s--)
+    (l = r[s]) && (t = l(e, i, t) || t);
+  return t && f(e, i, t), t;
 };
-class s extends p {
-  constructor() {
-    super(...arguments);
-    l(this, "config");
-  }
+const o = class o extends a {
   render() {
-    var e, o;
-    return h`
+    var e, i;
+    return d`
       <div class="links">
         <h3 class="links-title">${((e = this.config) == null ? void 0 : e.title) || "Links"}</h3>
         <div class="links-content">
-          ${((o = this.config) == null ? void 0 : o.content) || "This is a new Links component"}
+          ${((i = this.config) == null ? void 0 : i.content) || "This is a new Links component"}
         </div>
       </div>
     `;
   }
-}
-l(s, "styles", f`
+};
+o.styles = c`
     :host {
       display: block;
     }
@@ -43,11 +36,12 @@ l(s, "styles", f`
     .links-content {
       color: #666;
     }
-  `);
-g([
-  k({ type: Object })
-], s.prototype, "config");
-typeof s < "u" && s.registerSallaComponent("salla-links");
+  `;
+let n = o;
+h([
+  p({ type: Object })
+], n.prototype, "config");
+typeof n < "u" && n.registerSallaComponent("salla-links");
 export {
-  s as default
+  n as default
 };

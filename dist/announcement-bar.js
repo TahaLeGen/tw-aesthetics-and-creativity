@@ -1,21 +1,13 @@
-var f = Object.defineProperty;
-var b = (n, e, t) => e in n ? f(n, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : n[e] = t;
-var r = (n, e, t) => b(n, typeof e != "symbol" ? e + "" : e, t);
-import { LitElement as m, css as u, html as d } from "lit";
-import { property as h, state as p } from "lit/decorators.js";
-var v = Object.defineProperty, o = (n, e, t, c) => {
-  for (var i = void 0, a = n.length - 1, l; a >= 0; a--)
-    (l = n[a]) && (i = l(e, t, i) || i);
-  return i && v(e, t, i), i;
+import { LitElement as f, css as b, html as d } from "lit";
+import { property as m, state as p } from "lit/decorators.js";
+var u = Object.defineProperty, n = (o, i, r, c) => {
+  for (var t = void 0, s = o.length - 1, l; s >= 0; s--)
+    (l = o[s]) && (t = l(i, r, t) || t);
+  return t && u(i, r, t), t;
 };
-class s extends m {
+const a = class a extends f {
   constructor() {
-    super(...arguments);
-    r(this, "config");
-    r(this, "visible", !0);
-    r(this, "secondsLeft", 60 * 60 * 24);
-    // مثال: عداد يوم كامل
-    r(this, "timerInterval");
+    super(...arguments), this.visible = !0, this.secondsLeft = 60 * 60 * 24;
   }
   connectedCallback() {
     super.connectedCallback(), this.startTimer();
@@ -31,9 +23,9 @@ class s extends m {
   closeBar() {
     this.visible = !1;
   }
-  formatTime(t) {
-    const c = Math.floor(t / 3600), i = Math.floor(t % 3600 / 60), a = t % 60;
-    return `${c}h ${i}m ${a}s`;
+  formatTime(i) {
+    const r = Math.floor(i / 3600), c = Math.floor(i % 3600 / 60), t = i % 60;
+    return `${r}h ${c}m ${t}s`;
   }
   render() {
     return this.visible ? d`
@@ -47,8 +39,8 @@ class s extends m {
       </div>
     ` : d``;
   }
-}
-r(s, "styles", u`
+};
+a.styles = b`
     :host {
       display: block;
     }
@@ -103,17 +95,18 @@ r(s, "styles", u`
         gap: 10px;
       }
     }
-  `);
-o([
-  h({ type: Object })
-], s.prototype, "config");
-o([
+  `;
+let e = a;
+n([
+  m({ type: Object })
+], e.prototype, "config");
+n([
   p()
-], s.prototype, "visible");
-o([
+], e.prototype, "visible");
+n([
   p()
-], s.prototype, "secondsLeft");
-typeof s < "u" && s.registerSallaComponent("salla-announcement-bar");
+], e.prototype, "secondsLeft");
+typeof e < "u" && e.registerSallaComponent("salla-announcement-bar");
 export {
-  s as AnnouncementBar
+  e as AnnouncementBar
 };

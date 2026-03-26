@@ -1,36 +1,21 @@
-var m = Object.defineProperty;
-var x = (a, r, t) => r in a ? m(a, r, { enumerable: !0, configurable: !0, writable: !0, value: t }) : a[r] = t;
-var e = (a, r, t) => x(a, typeof r != "symbol" ? r + "" : r, t);
-import { LitElement as b, css as h, html as c } from "lit";
-import { property as n } from "lit/decorators.js";
-var u = Object.defineProperty, s = (a, r, t, p) => {
-  for (var i = void 0, d = a.length - 1, l; d >= 0; d--)
-    (l = a[d]) && (i = l(r, t, i) || i);
-  return i && u(r, t, i), i;
+import { LitElement as m, css as x, html as c } from "lit";
+import { property as i } from "lit/decorators.js";
+var b = Object.defineProperty, o = (d, e, r, a) => {
+  for (var n = void 0, s = d.length - 1, l; s >= 0; s--)
+    (l = d[s]) && (n = l(e, r, n) || n);
+  return n && b(e, r, n), n;
 };
-class o extends b {
+const p = class p extends m {
   constructor() {
-    super(...arguments);
-    e(this, "config");
-    e(this, "title");
-    e(this, "promoText");
-    e(this, "buttonText");
-    e(this, "discount");
-    e(this, "backgroundColor");
-    e(this, "endTime");
-    e(this, "primaryColor");
-    e(this, "badgeColor");
-    // Internal state
-    e(this, "timerState", {
+    super(...arguments), this.timerState = {
       hours: 0,
       minutes: 0,
       seconds: 0
-    });
-    e(this, "timerId", null);
+    }, this.timerId = null;
   }
   // Lifecycle methods
   connectedCallback() {
-    super.connectedCallback(), this.title || (this.title = "Flash Sale"), this.promoText || (this.promoText = "Limited time offer"), this.buttonText || (this.buttonText = "Shop Now"), this.discount || (this.discount = "-50%"), this.backgroundColor || (this.backgroundColor = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"), this.endTime || (this.endTime = Date.now() + 36e5), this.primaryColor || (this.primaryColor = "#ff4757"), this.badgeColor || (this.badgeColor = "#ffa502"), this.updateTimer(), this.startTimer();
+    super.connectedCallback(), this.updateTimer(), this.startTimer();
   }
   disconnectedCallback() {
     super.disconnectedCallback(), this.stopTimer();
@@ -45,8 +30,8 @@ class o extends b {
     this.timerId !== null && (clearInterval(this.timerId), this.timerId = null);
   }
   updateTimer() {
-    const t = Date.now(), p = (this.endTime ?? Date.now() + 36e5) - t;
-    if (p <= 0) {
+    const e = Date.now(), r = (this.endTime ?? Date.now() + 36e5) - e;
+    if (r <= 0) {
       this.timerState = { hours: 0, minutes: 0, seconds: 0 }, this.stopTimer(), this.dispatchEvent(
         new CustomEvent("timer-expired", {
           detail: { expired: !0 },
@@ -56,11 +41,11 @@ class o extends b {
       );
       return;
     }
-    const i = Math.floor(p / 1e3);
+    const a = Math.floor(r / 1e3);
     this.timerState = {
-      hours: Math.floor(i / 3600) % 24,
-      minutes: Math.floor(i % 3600 / 60),
-      seconds: i % 60
+      hours: Math.floor(a / 3600) % 24,
+      minutes: Math.floor(a % 3600 / 60),
+      seconds: a % 60
     }, this.requestUpdate();
   }
   // Event handlers
@@ -74,13 +59,13 @@ class o extends b {
     );
   }
   // Helper method for zero-padding numbers
-  padNumber(t) {
-    return String(t).padStart(2, "0");
+  padNumber(e) {
+    return String(e).padStart(2, "0");
   }
   render() {
-    const t = this.backgroundColor || "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", p = this.primaryColor || "#ff4757", i = this.badgeColor || "#ffa502";
+    const e = this.backgroundColor || "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", r = this.primaryColor || "#ff4757", a = this.badgeColor || "#ffa502";
     return c`
-      <div class="banner-container" style="--banner-bg: ${t}; --primary-color: ${p}; --badge-color: ${i};">
+      <div class="banner-container" style="--banner-bg: ${e}; --primary-color: ${r}; --badge-color: ${a};">
         <div class="banner-overlay"></div>
         <div class="banner-content">
           ${this.discount ? c`<div class="discount-badge">${this.discount}</div>` : null}
@@ -111,8 +96,8 @@ class o extends b {
       </div>
     `;
   }
-}
-e(o, "styles", h`
+};
+p.styles = x`
     :host {
       --primary-color: #ff4757;
       --secondary-color: #2f3542;
@@ -431,35 +416,33 @@ e(o, "styles", h`
         margin-bottom: 15px;
       }
     }
-  `);
-s([
-  n({ type: Object })
-], o.prototype, "config");
-s([
-  n({ type: String })
-], o.prototype, "title");
-s([
-  n({ type: String })
-], o.prototype, "promoText");
-s([
-  n({ type: String })
-], o.prototype, "buttonText");
-s([
-  n({ type: String })
-], o.prototype, "discount");
-s([
-  n({ type: String })
-], o.prototype, "backgroundColor");
-s([
-  n({ type: Number })
-], o.prototype, "endTime");
-s([
-  n({ type: String })
-], o.prototype, "primaryColor");
-s([
-  n({ type: String })
-], o.prototype, "badgeColor");
-typeof o < "u" && o.registerSallaComponent("salla-flash-sale-banners");
+  `;
+let t = p;
+o([
+  i({ type: String })
+], t.prototype, "title");
+o([
+  i({ type: String })
+], t.prototype, "promoText");
+o([
+  i({ type: String })
+], t.prototype, "buttonText");
+o([
+  i({ type: String })
+], t.prototype, "discount");
+o([
+  i({ type: String })
+], t.prototype, "backgroundColor");
+o([
+  i({ type: Number })
+], t.prototype, "endTime");
+o([
+  i({ type: String })
+], t.prototype, "primaryColor");
+o([
+  i({ type: String })
+], t.prototype, "badgeColor");
+typeof t < "u" && t.registerSallaComponent("salla-flash-sale-banners");
 export {
-  o as default
+  t as default
 };

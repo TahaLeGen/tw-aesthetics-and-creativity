@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 interface TimerState {
   hours: number;
@@ -7,12 +7,7 @@ interface TimerState {
   seconds: number;
 }
 
-
 export default class FlashSaleBanner extends LitElement {
-  @property({ type: Object })
-  config?: Record<string, any>;
-
-
   @property({ type: String })
   title?: string;
 
@@ -34,7 +29,7 @@ export default class FlashSaleBanner extends LitElement {
   @property({ type: String })
   primaryColor?: string;
 
- @property({ type: String })
+  @property({ type: String })
   badgeColor?: string;
 
   static styles = css`
@@ -370,17 +365,6 @@ export default class FlashSaleBanner extends LitElement {
   // Lifecycle methods
   connectedCallback(): void {
     super.connectedCallback();
-    
-    // Set default values
-    if (!this.title) this.title = 'Flash Sale';
-    if (!this.promoText) this.promoText = 'Limited time offer';
-    if (!this.buttonText) this.buttonText = 'Shop Now';
-    if (!this.discount) this.discount = '-50%';
-    if (!this.backgroundColor) this.backgroundColor = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-    if (!this.endTime) this.endTime = Date.now() + 3600000; // Default: 1 hour from now
-    if (!this.primaryColor) this.primaryColor = '#ff4757';
-    if (!this.badgeColor) this.badgeColor = '#ffa502';
-    
     this.updateTimer();
     this.startTimer();
   }
@@ -490,8 +474,8 @@ export default class FlashSaleBanner extends LitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'flash-sale-banner': FlashSaleBanner;
-  }
-}
+// declare global {
+//   interface HTMLElementTagNameMap {
+//     'flash-sale-banner': FlashSaleBanner;
+//   }
+// }

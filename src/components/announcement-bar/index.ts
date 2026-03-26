@@ -8,10 +8,10 @@ export class AnnouncementBar extends LitElement {
   config?: Record<string, any>;
 
   @state()
-  private visible = true;
+   visible = true;
 
   @state()
-  private secondsLeft: number = 60 * 60 * 24; // مثال: عداد يوم كامل
+   secondsLeft: number = 60 * 60 * 24; // مثال: عداد يوم كامل
 
   private timerInterval: number | undefined;
 

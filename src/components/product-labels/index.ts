@@ -5,7 +5,6 @@ import { customElement, property } from 'lit/decorators.js';
  * Product Label Component
  * عرض بطاقات المنتجات (جديد، تخفيض، ساخن)
  */
-@customElement('product-label')
 export default class ProductLabel extends LitElement {
   /**
    * استقبال البيانات من twilight.json

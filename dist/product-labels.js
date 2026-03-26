@@ -1,38 +1,30 @@
-var p = Object.defineProperty;
-var f = (l, e, a) => e in l ? p(l, e, { enumerable: !0, configurable: !0, writable: !0, value: a }) : l[e] = a;
-var i = (l, e, a) => f(l, typeof e != "symbol" ? e + "" : e, a);
-import { css as d, LitElement as g, html as m } from "lit";
-import { property as u, customElement as x } from "lit/decorators.js";
-var b = Object.defineProperty, h = Object.getOwnPropertyDescriptor, v = (l, e, a) => e in l ? b(l, e, { enumerable: !0, configurable: !0, writable: !0, value: a }) : l[e] = a, c = (l, e, a, r) => {
-  for (var t = r > 1 ? void 0 : r ? h(e, a) : e, n = l.length - 1, o; n >= 0; n--)
-    (o = l[n]) && (t = (r ? o(e, a, t) : o(t)) || t);
-  return r && t && b(e, a, t), t;
-}, w = (l, e, a) => v(l, e + "", a);
-let s = class extends g {
+import { LitElement as b, css as p, html as c } from "lit";
+import { property as d } from "lit/decorators.js";
+var f = Object.defineProperty, g = (o, a, r, i) => {
+  for (var e = void 0, l = o.length - 1, t; l >= 0; l--)
+    (t = o[l]) && (e = t(a, r, e) || e);
+  return e && f(a, r, e), e;
+};
+const s = class s extends b {
   constructor() {
-    super(...arguments);
-    i(this, "config");
-    /**
-     * Default icons لكل نوع
-     */
-    i(this, "defaultIcons", {
+    super(...arguments), this.defaultIcons = {
       new: "✨",
       sale: "🔥",
       hot: "🌟"
-    });
+    };
   }
   render() {
-    var t, n, o;
-    const e = ((t = this.config) == null ? void 0 : t.type) || "new", a = ((n = this.config) == null ? void 0 : n.text) || "New", r = ((o = this.config) == null ? void 0 : o.icon) || this.defaultIcons[e] || this.defaultIcons.new;
-    return m`
-      <div class="label label--${e}">
-        <span class="label__icon">${r}</span>
-        <span class="label__text">${a}</span>
+    var e, l, t;
+    const a = ((e = this.config) == null ? void 0 : e.type) || "new", r = ((l = this.config) == null ? void 0 : l.text) || "New", i = ((t = this.config) == null ? void 0 : t.icon) || this.defaultIcons[a] || this.defaultIcons.new;
+    return c`
+      <div class="label label--${a}">
+        <span class="label__icon">${i}</span>
+        <span class="label__text">${r}</span>
       </div>
     `;
   }
 };
-w(s, "styles", d`
+s.styles = p`
     :host {
       --label-bg-new: #1dd1a1;
       --label-bg-sale: #0984e3;
@@ -115,14 +107,12 @@ w(s, "styles", d`
         font-size: 1em;
       }
     }
-  `);
-c([
-  u({ type: Object })
-], s.prototype, "config", 2);
-s = c([
-  x("product-label")
-], s);
-typeof s < "u" && s.registerSallaComponent("salla-product-labels");
+  `;
+let n = s;
+g([
+  d({ type: Object })
+], n.prototype, "config");
+typeof n < "u" && n.registerSallaComponent("salla-product-labels");
 export {
-  s as default
+  n as default
 };

@@ -3,7 +3,7 @@ import { property } from "lit/decorators.js";
 
 export default class Links extends LitElement {
   @property({ type: Object })
-  config?: Record<string, any>;
+  declare config?: Record<string, any>;
 
   static styles = css`
     :host {
