@@ -39,13 +39,12 @@
                     "value": "This is a new Links component"
                 }
             ]
-<<<<<<< HEAD
         },
         {
-            "title": "Announcement Bar",
+            "title": "Banner",
             "icon": "sicon-layout-grid",
-            "name": "announcement-bar",
-            "key": "651c579b-1a1b-4218-aade-124dae99e1f2",
+            "name": "banner",
+            "key": "3c3a0413-1b5a-49d0-8edf-21799d57bed3",
             "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
             "fields": [
                 {
@@ -56,7 +55,7 @@
                     "format": "text",
                     "required": true,
                     "placeholder": "Enter component title...",
-                    "value": "Announcement Bar"
+                    "value": "Banner"
                 },
                 {
                     "id": "content",
@@ -66,40 +65,76 @@
                     "format": "textarea",
                     "required": false,
                     "placeholder": "Enter component content...",
-                    "value": "This is a new Announcement Bar component"
+                    "value": "This is a new Banner component"
                 }
             ]
         },
         {
-            "title": "Flash Sale Banners",
-            "icon": "sicon-layout-grid",
-            "name": "flash-sale-banners",
-            "key": "68fd762b-2af5-42fe-99b8-f32368bccb12",
+            "title": "Product Label",
+            "icon": "sicon-tag",
+            "name": "product-labels",
+            "key": "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6",
             "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
             "fields": [
                 {
-                    "id": "title",
-                    "icon": "sicon-format-text-alt",
-                    "type": "string",
-                    "label": "Title",
-                    "format": "text",
+                    "id": "type",
+                    "icon": "sicon-keyboard_arrow_down",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "نوع البطاقة",
+                    "description": "اختر نوع البطاقة المراد عرضها",
                     "required": true,
-                    "placeholder": "Enter component title...",
-                    "value": "Flash Sale Banners"
+                    "selected": [
+                        {
+                            "label": "جديد",
+                            "value": "new",
+                            "key": "new-key"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "label": "جديد",
+                            "value": "new",
+                            "key": "new-key"
+                        },
+                        {
+                            "label": "تخفيض",
+                            "value": "sale",
+                            "key": "sale-key"
+                        },
+                        {
+                            "label": "ساخن",
+                            "value": "hot",
+                            "key": "hot-key"
+                        }
+                    ],
+                    "source": "Manual",
+                    "multichoice": false,
+                    "searchable": true
                 },
                 {
-                    "id": "content",
-                    "icon": "sicon-paragraph",
+                    "id": "text",
+                    "icon": "sicon-format-text-alt",
                     "type": "string",
-                    "label": "Content",
-                    "format": "textarea",
-                    "required": false,
-                    "placeholder": "Enter component content...",
-                    "value": "This is a new Flash Sale Banners component"
+                    "format": "text",
+                    "label": "نص البطاقة",
+                    "description": "النص الذي سيظهر على البطاقة",
+                    "placeholder": "أدخل النص... مثال: جديد الآن",
+                    "value": "جديد",
+                    "required": true
+                },
+                {
+                    "id": "icon",
+                    "icon": "sicon-emoji-smile",
+                    "type": "string",
+                    "format": "text",
+                    "label": "الرمز (Emoji)",
+                    "description": "ضع أي Emoji تريده أو نص قصير",
+                    "placeholder": "مثال: ✨ أو 🔥 أو 🌟",
+                    "value": "✨",
+                    "required": false
                 }
             ]
-=======
->>>>>>> 4125922837bfdeffbf26701a1494c5f9104f1e11
         }
     ]
 }
