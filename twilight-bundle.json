@@ -41,9 +41,9 @@
             ]
         },
         {
-            "title": "Banner",
+            "title": "Flash Sale Banners",
             "icon": "sicon-layout-grid",
-            "name": "banner",
+            "name": "flash-sale-banners",
             "key": "3c3a0413-1b5a-49d0-8edf-21799d57bed3",
             "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
             "fields": [
@@ -133,6 +133,34 @@
                     "placeholder": "مثال: ✨ أو 🔥 أو 🌟",
                     "value": "✨",
                     "required": false
+                }
+            ]
+        },  {
+            "title": "Announcement Bar",
+            "icon": "sicon-layout-grid",
+            "name": "announcement-bar",
+            "key": "2dea768e-8033-44ce-ad7b-1298791fze1d",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "title",
+                    "icon": "sicon-format-text-alt",
+                    "type": "string",
+                    "label": "Title",
+                    "format": "text",
+                    "required": true,
+                    "placeholder": "Enter component title...",
+                    "value": "Announcement Bar"
+                },
+                {
+                    "id": "content",
+                    "icon": "sicon-paragraph",
+                    "type": "string",
+                    "label": "Content",
+                    "format": "textarea",
+                    "required": false,
+                    "placeholder": "Enter component content...",
+                    "value": "This is a new Announcement Bar component"
                 }
             ]
         }

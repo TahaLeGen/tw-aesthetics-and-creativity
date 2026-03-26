@@ -1,8 +1,12 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-@customElement('announcement-bar')
+
 export class AnnouncementBar extends LitElement {
+
+    @property({ type: Object })
+  config?: Record<string, any>;
+
   @state()
   private visible = true;
 

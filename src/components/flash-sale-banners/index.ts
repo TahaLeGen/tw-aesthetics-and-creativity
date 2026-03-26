@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 interface TimerState {
   hours: number;
@@ -7,8 +7,36 @@ interface TimerState {
   seconds: number;
 }
 
-@customElement('flash-sale-banner')
-export class FlashSaleBanner extends LitElement {
+
+export default class FlashSaleBanner extends LitElement {
+  @property({ type: Object })
+  config?: Record<string, any>;
+
+
+  @property({ type: String })
+  title?: string;
+
+  @property({ type: String })
+  promoText?: string;
+
+  @property({ type: String })
+  buttonText?: string;
+
+  @property({ type: String })
+  discount?: string;
+
+  @property({ type: String })
+  backgroundColor?: string;
+
+  @property({ type: Number })
+  endTime?: number;
+
+  @property({ type: String })
+  primaryColor?: string;
+
+ @property({ type: String })
+  badgeColor?: string;
+
   static styles = css`
     :host {
       --primary-color: #ff4757;
@@ -330,31 +358,6 @@ export class FlashSaleBanner extends LitElement {
     }
   `;
 
-  // Properties with decorators
-  @property({ type: String })
-  title: string = 'Flash Sale';
-
-  @property({ type: String })
-  promoText: string = 'Limited time offer';
-
-  @property({ type: String })
-  buttonText: string = 'Shop Now';
-
-  @property({ type: String })
-  discount: string = '-50%';
-
-  @property({ type: String })
-  backgroundColor: string = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-
-  @property({ type: Number })
-  endTime: number = Date.now() + 3600000; // Default: 1 hour from now
-
-  @property({ type: String })
-  primaryColor: string = '#ff4757';
-
-  @property({ type: String })
-  badgeColor: string = '#ffa502';
-
   // Internal state
   private timerState: TimerState = {
     hours: 0,
@@ -367,6 +370,17 @@ export class FlashSaleBanner extends LitElement {
   // Lifecycle methods
   connectedCallback(): void {
     super.connectedCallback();
+    
+    // Set default values
+    if (!this.title) this.title = 'Flash Sale';
+    if (!this.promoText) this.promoText = 'Limited time offer';
+    if (!this.buttonText) this.buttonText = 'Shop Now';
+    if (!this.discount) this.discount = '-50%';
+    if (!this.backgroundColor) this.backgroundColor = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    if (!this.endTime) this.endTime = Date.now() + 3600000; // Default: 1 hour from now
+    if (!this.primaryColor) this.primaryColor = '#ff4757';
+    if (!this.badgeColor) this.badgeColor = '#ffa502';
+    
     this.updateTimer();
     this.startTimer();
   }
@@ -379,7 +393,7 @@ export class FlashSaleBanner extends LitElement {
   // Timer management
   private startTimer(): void {
     if (this.timerId !== null) {
-      return; // Timer already running
+      return;
     }
 
     this.timerId = window.setInterval(() => {
@@ -396,7 +410,7 @@ export class FlashSaleBanner extends LitElement {
 
   private updateTimer(): void {
     const now = Date.now();
-    const difference = this.endTime - now;
+    const difference = (this.endTime ?? Date.now() + 3600000) - now;
 
     if (difference <= 0) {
       this.timerState = { hours: 0, minutes: 0, seconds: 0 };
@@ -438,15 +452,19 @@ export class FlashSaleBanner extends LitElement {
   }
 
   render() {
+    const bgColor = this.backgroundColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    const primaryColor = this.primaryColor || '#ff4757';
+    const badgeColor = this.badgeColor || '#ffa502';
+
     return html`
-      <div class="banner-container" style="--banner-bg: ${this.backgroundColor}; --primary-color: ${this.primaryColor}; --badge-color: ${this.badgeColor};">
+      <div class="banner-container" style="--banner-bg: ${bgColor}; --primary-color: ${primaryColor}; --badge-color: ${badgeColor};">
         <div class="banner-overlay"></div>
         <div class="banner-content">
           ${this.discount ? html`<div class="discount-badge">${this.discount}</div>` : null}
 
-          <h1 class="headline">${this.title}</h1>
+          <h1 class="headline">${this.title || 'Flash Sale'}</h1>
 
-          <p class="promo-text">${this.promoText}</p>
+          <p class="promo-text">${this.promoText || 'Limited time offer'}</p>
 
           <div class="timer-container">
             <div class="timer-unit">
@@ -464,7 +482,7 @@ export class FlashSaleBanner extends LitElement {
           </div>
 
           <button class="cta-button" @click="${this.handleButtonClick}">
-            ${this.buttonText}
+            ${this.buttonText || 'Shop Now'}
           </button>
         </div>
       </div>

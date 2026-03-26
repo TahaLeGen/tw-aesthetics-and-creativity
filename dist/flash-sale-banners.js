@@ -1,42 +1,36 @@
-var L = Object.create;
-var k = Object.defineProperty;
-var R = Object.getOwnPropertyDescriptor;
-var Y = (t, e) => (e = Symbol[t]) ? e : Symbol.for("Symbol." + t), h = (t) => {
-  throw TypeError(t);
+var m = Object.defineProperty;
+var x = (a, r, t) => r in a ? m(a, r, { enumerable: !0, configurable: !0, writable: !0, value: t }) : a[r] = t;
+var e = (a, r, t) => x(a, typeof r != "symbol" ? r + "" : r, t);
+import { LitElement as b, css as h, html as c } from "lit";
+import { property as n } from "lit/decorators.js";
+var u = Object.defineProperty, s = (a, r, t, p) => {
+  for (var i = void 0, d = a.length - 1, l; d >= 0; d--)
+    (l = a[d]) && (i = l(r, t, i) || i);
+  return i && u(r, t, i), i;
 };
-var q = (t, e, i) => e in t ? k(t, e, { enumerable: !0, configurable: !0, writable: !0, value: i }) : t[e] = i;
-var S = (t, e) => k(t, "name", { value: e, configurable: !0 });
-var j = (t) => [, , , L((t == null ? void 0 : t[Y("metadata")]) ?? null)], N = ["class", "method", "getter", "setter", "accessor", "field", "value", "get", "set"], b = (t) => t !== void 0 && typeof t != "function" ? h("Function expected") : t, G = (t, e, i, a, r) => ({ kind: N[t], name: e, metadata: a, addInitializer: (n) => i._ ? h("Already initialized") : r.push(b(n || null)) }), J = (t, e) => q(e, Y("metadata"), t[3]), U = (t, e, i, a) => {
-  for (var r = 0, n = t[e >> 1], c = n && n.length; r < c; r++) e & 1 ? n[r].call(i) : a = n[r].call(i, a);
-  return a;
-}, M = (t, e, i, a, r, n) => {
-  var c, p, T, x, g, o = e & 7, f = !!(e & 8), l = !!(e & 16), v = o > 3 ? t.length + 1 : o ? f ? 1 : 2 : 0, $ = N[o + 5], I = o > 3 && (t[v - 1] = []), H = t[v] || (t[v] = []), d = o && (!l && !f && (r = r.prototype), o < 5 && (o > 3 || !l) && R(o < 4 ? r : { get [i]() {
-    return D(this, n);
-  }, set [i](s) {
-    return E(this, n, s);
-  } }, i));
-  o ? l && o < 4 && S(n, (o > 2 ? "set " : o > 1 ? "get " : "") + i) : S(r, i);
-  for (var w = a.length - 1; w >= 0; w--)
-    x = G(o, i, T = {}, t[3], H), o && (x.static = f, x.private = l, g = x.access = { has: l ? (s) => K(r, s) : (s) => i in s }, o ^ 3 && (g.get = l ? (s) => (o ^ 1 ? D : O)(s, r, o ^ 4 ? n : d.get) : (s) => s[i]), o > 2 && (g.set = l ? (s, y) => E(s, r, y, o ^ 4 ? n : d.set) : (s, y) => s[i] = y)), p = (0, a[w])(o ? o < 4 ? l ? n : d[$] : o > 4 ? void 0 : { get: d.get, set: d.set } : r, x), T._ = 1, o ^ 4 || p === void 0 ? b(p) && (o > 4 ? I.unshift(p) : o ? l ? n = p : d[$] = p : r = p) : typeof p != "object" || p === null ? h("Object expected") : (b(c = p.get) && (d.get = c), b(c = p.set) && (d.set = c), b(c = p.init) && I.unshift(c));
-  return o || J(t, r), d && k(r, i, d), l ? o ^ 4 ? n : d : r;
-};
-var C = (t, e, i) => e.has(t) || h("Cannot " + i), K = (t, e) => Object(e) !== e ? h('Cannot use the "in" operator on this value') : t.has(e), D = (t, e, i) => (C(t, e, "read from private field"), i ? i.call(t) : e.get(t));
-var E = (t, e, i, a) => (C(t, e, "write to private field"), a ? a.call(t, i) : e.set(t, i), i), O = (t, e, i) => (C(t, e, "access private method"), i);
-import { LitElement as Q, css as V, html as A } from "lit";
-import { customElement as W } from "lit/decorators.js";
-var P, z, X;
-P = [W("flash-sale-banner")];
-let m = class m extends (X = Q) {
+class o extends b {
   constructor() {
-    super(...arguments), this.title = "Flash Sale", this.promoText = "Limited time offer", this.buttonText = "Shop Now", this.discount = "-50%", this.backgroundColor = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", this.endTime = Date.now() + 36e5, this.primaryColor = "#ff4757", this.badgeColor = "#ffa502", this.timerState = {
+    super(...arguments);
+    e(this, "config");
+    e(this, "title");
+    e(this, "promoText");
+    e(this, "buttonText");
+    e(this, "discount");
+    e(this, "backgroundColor");
+    e(this, "endTime");
+    e(this, "primaryColor");
+    e(this, "badgeColor");
+    // Internal state
+    e(this, "timerState", {
       hours: 0,
       minutes: 0,
       seconds: 0
-    }, this.timerId = null;
+    });
+    e(this, "timerId", null);
   }
   // Lifecycle methods
   connectedCallback() {
-    super.connectedCallback(), this.updateTimer(), this.startTimer();
+    super.connectedCallback(), this.title || (this.title = "Flash Sale"), this.promoText || (this.promoText = "Limited time offer"), this.buttonText || (this.buttonText = "Shop Now"), this.discount || (this.discount = "-50%"), this.backgroundColor || (this.backgroundColor = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"), this.endTime || (this.endTime = Date.now() + 36e5), this.primaryColor || (this.primaryColor = "#ff4757"), this.badgeColor || (this.badgeColor = "#ffa502"), this.updateTimer(), this.startTimer();
   }
   disconnectedCallback() {
     super.disconnectedCallback(), this.stopTimer();
@@ -51,8 +45,8 @@ let m = class m extends (X = Q) {
     this.timerId !== null && (clearInterval(this.timerId), this.timerId = null);
   }
   updateTimer() {
-    const e = Date.now(), i = this.endTime - e;
-    if (i <= 0) {
+    const t = Date.now(), p = (this.endTime ?? Date.now() + 36e5) - t;
+    if (p <= 0) {
       this.timerState = { hours: 0, minutes: 0, seconds: 0 }, this.stopTimer(), this.dispatchEvent(
         new CustomEvent("timer-expired", {
           detail: { expired: !0 },
@@ -62,11 +56,11 @@ let m = class m extends (X = Q) {
       );
       return;
     }
-    const a = Math.floor(i / 1e3);
+    const i = Math.floor(p / 1e3);
     this.timerState = {
-      hours: Math.floor(a / 3600) % 24,
-      minutes: Math.floor(a % 3600 / 60),
-      seconds: a % 60
+      hours: Math.floor(i / 3600) % 24,
+      minutes: Math.floor(i % 3600 / 60),
+      seconds: i % 60
     }, this.requestUpdate();
   }
   // Event handlers
@@ -80,19 +74,20 @@ let m = class m extends (X = Q) {
     );
   }
   // Helper method for zero-padding numbers
-  padNumber(e) {
-    return String(e).padStart(2, "0");
+  padNumber(t) {
+    return String(t).padStart(2, "0");
   }
   render() {
-    return A`
-      <div class="banner-container" style="--banner-bg: ${this.backgroundColor}; --primary-color: ${this.primaryColor}; --badge-color: ${this.badgeColor};">
+    const t = this.backgroundColor || "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", p = this.primaryColor || "#ff4757", i = this.badgeColor || "#ffa502";
+    return c`
+      <div class="banner-container" style="--banner-bg: ${t}; --primary-color: ${p}; --badge-color: ${i};">
         <div class="banner-overlay"></div>
         <div class="banner-content">
-          ${this.discount ? A`<div class="discount-badge">${this.discount}</div>` : null}
+          ${this.discount ? c`<div class="discount-badge">${this.discount}</div>` : null}
 
-          <h1 class="headline">${this.title}</h1>
+          <h1 class="headline">${this.title || "Flash Sale"}</h1>
 
-          <p class="promo-text">${this.promoText}</p>
+          <p class="promo-text">${this.promoText || "Limited time offer"}</p>
 
           <div class="timer-container">
             <div class="timer-unit">
@@ -110,14 +105,14 @@ let m = class m extends (X = Q) {
           </div>
 
           <button class="cta-button" @click="${this.handleButtonClick}">
-            ${this.buttonText}
+            ${this.buttonText || "Shop Now"}
           </button>
         </div>
       </div>
     `;
   }
-};
-z = j(X), m = M(z, 0, "FlashSaleBanner", P, m), m.styles = V`
+}
+e(o, "styles", h`
     :host {
       --primary-color: #ff4757;
       --secondary-color: #2f3542;
@@ -436,9 +431,35 @@ z = j(X), m = M(z, 0, "FlashSaleBanner", P, m), m.styles = V`
         margin-bottom: 15px;
       }
     }
-  `, U(z, 1, m);
-let u = m;
-typeof u < "u" && u.registerSallaComponent("salla-flash-sale-banners");
+  `);
+s([
+  n({ type: Object })
+], o.prototype, "config");
+s([
+  n({ type: String })
+], o.prototype, "title");
+s([
+  n({ type: String })
+], o.prototype, "promoText");
+s([
+  n({ type: String })
+], o.prototype, "buttonText");
+s([
+  n({ type: String })
+], o.prototype, "discount");
+s([
+  n({ type: String })
+], o.prototype, "backgroundColor");
+s([
+  n({ type: Number })
+], o.prototype, "endTime");
+s([
+  n({ type: String })
+], o.prototype, "primaryColor");
+s([
+  n({ type: String })
+], o.prototype, "badgeColor");
+typeof o < "u" && o.registerSallaComponent("salla-flash-sale-banners");
 export {
-  u as FlashSaleBanner
+  o as default
 };

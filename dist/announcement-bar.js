@@ -1,34 +1,21 @@
-var K = Object.create;
-var I = Object.defineProperty;
-var N = Object.getOwnPropertyDescriptor;
-var E = (t, e) => (e = Symbol[t]) ? e : Symbol.for("Symbol." + t), h = (t) => {
-  throw TypeError(t);
+var f = Object.defineProperty;
+var b = (n, e, t) => e in n ? f(n, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : n[e] = t;
+var r = (n, e, t) => b(n, typeof e != "symbol" ? e + "" : e, t);
+import { LitElement as m, css as u, html as d } from "lit";
+import { property as h, state as p } from "lit/decorators.js";
+var v = Object.defineProperty, o = (n, e, t, c) => {
+  for (var i = void 0, a = n.length - 1, l; a >= 0; a--)
+    (l = n[a]) && (i = l(e, t, i) || i);
+  return i && v(e, t, i), i;
 };
-var O = (t, e, i) => e in t ? I(t, e, { enumerable: !0, configurable: !0, writable: !0, value: i }) : t[e] = i;
-var T = (t, e) => I(t, "name", { value: e, configurable: !0 });
-var S = (t) => [, , , K((t == null ? void 0 : t[E("metadata")]) ?? null)], q = ["class", "method", "getter", "setter", "accessor", "field", "value", "get", "set"], m = (t) => t !== void 0 && typeof t != "function" ? h("Function expected") : t, P = (t, e, i, a, r) => ({ kind: q[t], name: e, metadata: a, addInitializer: (n) => i._ ? h("Already initialized") : r.push(m(n || null)) }), Q = (t, e) => O(e, E("metadata"), t[3]), D = (t, e, i, a) => {
-  for (var r = 0, n = t[e >> 1], p = n && n.length; r < p; r++) e & 1 ? n[r].call(i) : a = n[r].call(i, a);
-  return a;
-}, F = (t, e, i, a, r, n) => {
-  var p, c, L, f, g, s = e & 7, x = !!(e & 8), d = !!(e & 16), v = s > 3 ? t.length + 1 : s ? x ? 1 : 2 : 0, $ = q[s + 5], M = s > 3 && (t[v - 1] = []), J = t[v] || (t[v] = []), l = s && (!d && !x && (r = r.prototype), s < 5 && (s > 3 || !d) && N(s < 4 ? r : { get [i]() {
-    return j(this, n);
-  }, set [i](o) {
-    return z(this, n, o);
-  } }, i));
-  s ? d && s < 4 && T(n, (s > 2 ? "set " : s > 1 ? "get " : "") + i) : T(r, i);
-  for (var k = a.length - 1; k >= 0; k--)
-    f = P(s, i, L = {}, t[3], J), s && (f.static = x, f.private = d, g = f.access = { has: d ? (o) => R(r, o) : (o) => i in o }, s ^ 3 && (g.get = d ? (o) => (s ^ 1 ? j : U)(o, r, s ^ 4 ? n : l.get) : (o) => o[i]), s > 2 && (g.set = d ? (o, y) => z(o, r, y, s ^ 4 ? n : l.set) : (o, y) => o[i] = y)), c = (0, a[k])(s ? s < 4 ? d ? n : l[$] : s > 4 ? void 0 : { get: l.get, set: l.set } : r, f), L._ = 1, s ^ 4 || c === void 0 ? m(c) && (s > 4 ? M.unshift(c) : s ? d ? n = c : l[$] = c : r = c) : typeof c != "object" || c === null ? h("Object expected") : (m(p = c.get) && (l.get = p), m(p = c.set) && (l.set = p), m(p = c.init) && M.unshift(p));
-  return s || Q(t, r), l && I(r, i, l), d ? s ^ 4 ? n : l : r;
-};
-var w = (t, e, i) => e.has(t) || h("Cannot " + i), R = (t, e) => Object(e) !== e ? h('Cannot use the "in" operator on this value') : t.has(e), j = (t, e, i) => (w(t, e, "read from private field"), i ? i.call(t) : e.get(t));
-var z = (t, e, i, a) => (w(t, e, "write to private field"), a ? a.call(t, i) : e.set(t, i), i), U = (t, e, i) => (w(t, e, "access private method"), i);
-import { LitElement as V, css as W, html as G } from "lit";
-import { customElement as X } from "lit/decorators.js";
-var H, C, Y;
-H = [X("announcement-bar")];
-let b = class b extends (Y = V) {
+class s extends m {
   constructor() {
-    super(...arguments), this.visible = !0, this.secondsLeft = 60 * 60 * 24;
+    super(...arguments);
+    r(this, "config");
+    r(this, "visible", !0);
+    r(this, "secondsLeft", 60 * 60 * 24);
+    // مثال: عداد يوم كامل
+    r(this, "timerInterval");
   }
   connectedCallback() {
     super.connectedCallback(), this.startTimer();
@@ -44,12 +31,12 @@ let b = class b extends (Y = V) {
   closeBar() {
     this.visible = !1;
   }
-  formatTime(e) {
-    const i = Math.floor(e / 3600), a = Math.floor(e % 3600 / 60), r = e % 60;
-    return `${i}h ${a}m ${r}s`;
+  formatTime(t) {
+    const c = Math.floor(t / 3600), i = Math.floor(t % 3600 / 60), a = t % 60;
+    return `${c}h ${i}m ${a}s`;
   }
   render() {
-    return this.visible ? G`
+    return this.visible ? d`
       <div id="smart-announcement-bar">
         <div class="bar-content">
           <span class="bar-text">🔥 خصم 20% لفترة محدودة</span>
@@ -58,10 +45,10 @@ let b = class b extends (Y = V) {
         </div>
         <span class="close-bar" @click=${this.closeBar}>✖</span>
       </div>
-    ` : G``;
+    ` : d``;
   }
-};
-C = S(Y), b = F(C, 0, "AnnouncementBar", H, b), b.styles = W`
+}
+r(s, "styles", u`
     :host {
       display: block;
     }
@@ -116,9 +103,17 @@ C = S(Y), b = F(C, 0, "AnnouncementBar", H, b), b.styles = W`
         gap: 10px;
       }
     }
-  `, D(C, 1, b);
-let u = b;
-typeof u < "u" && u.registerSallaComponent("salla-announcement-bar");
+  `);
+o([
+  h({ type: Object })
+], s.prototype, "config");
+o([
+  p()
+], s.prototype, "visible");
+o([
+  p()
+], s.prototype, "secondsLeft");
+typeof s < "u" && s.registerSallaComponent("salla-announcement-bar");
 export {
-  u as AnnouncementBar
+  s as AnnouncementBar
 };
