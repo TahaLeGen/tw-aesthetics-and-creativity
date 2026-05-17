@@ -11,6 +11,9 @@ importers:
       '@salla.sa/twilight-bundles':
         specifier: ^0.1.0
         version: 0.1.39
+      lit:
+        specifier: ^3.3.3
+        version: 3.3.3
       vite:
         specifier: ^5.0.0
         version: 5.4.21
@@ -346,8 +349,8 @@ packages:
   lit-html@3.3.2:
     resolution: {integrity: sha512-Qy9hU88zcmaxBXcc10ZpdK7cOLXvXpRoBxERdtqV9QOrfpMZZ6pSYP91LhpPtap3sFMUiL7Tw2RImbe0Al2/kw==}
 
-  lit@3.3.2:
-    resolution: {integrity: sha512-NF9zbsP79l4ao2SNrH3NkfmFgN/hBYSQo90saIVI1o5GpjAdCPVstVzO1MrLOakHoEhYkrtRjPK6Ob521aoYWQ==}
+  lit@3.3.3:
+    resolution: {integrity: sha512-fycuvZg/hkpozL00lm1pEJH5nN/lr9ZXd6mJI2HSN4+Bzc+LDNdEApJ6HFbPkdFNHLvOplIIuJvxkS4XUxqirw==}
 
   lru-cache@11.2.6:
     resolution: {integrity: sha512-ESL2CrkS/2wTPfuend7Zhkzo2u0daGJ/A2VucJOgQ/C48S/zB8MMeMHSGKYpXhIjbPxfuezITkaBH1wqv00DDQ==}
@@ -602,7 +605,7 @@ snapshots:
   '@salla.sa/twilight-bundles@0.1.39':
     dependencies:
       glob: 11.1.0
-      lit: 3.3.2
+      lit: 3.3.3
       uuid: 11.1.0
 
   '@types/estree@1.0.8': {}
@@ -680,7 +683,7 @@ snapshots:
     dependencies:
       '@types/trusted-types': 2.0.7
 
-  lit@3.3.2:
+  lit@3.3.3:
     dependencies:
       '@lit/reactive-element': 2.1.2
       lit-element: 4.2.2

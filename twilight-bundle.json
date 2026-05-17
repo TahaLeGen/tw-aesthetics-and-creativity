@@ -135,7 +135,8 @@
                     "required": false
                 }
             ]
-        },  {
+        },
+        {
             "title": "Announcement Bar",
             "icon": "sicon-layout-grid",
             "name": "announcement-bar",
@@ -161,6 +162,122 @@
                     "required": false,
                     "placeholder": "Enter component content...",
                     "value": "This is a new Announcement Bar component"
+                }
+            ]
+        },
+        {
+            "title": "Marquee",
+            "icon": "sicon-layout-grid",
+            "name": "marquee",
+            "key": "04522c3d-69d6-470e-abc5-7abaeacc4e3d",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "title",
+                    "icon": "sicon-format-text-alt",
+                    "type": "string",
+                    "label": "Title",
+                    "format": "text",
+                    "required": true,
+                    "placeholder": "Enter component title...",
+                    "value": "Marquee"
+                },
+                {
+                    "id": "content",
+                    "icon": "sicon-paragraph",
+                    "type": "string",
+                    "label": "Content",
+                    "format": "textarea",
+                    "required": false,
+                    "placeholder": "Enter component content...",
+                    "value": "This is a new Marquee component"
+                }
+            ]
+        },
+        {
+            "title": "Lucky Wheel",
+            "icon": "sicon-layout-grid",
+            "name": "lucky-wheel",
+            "key": "14664420-f22a-4485-97fd-886a1b22cbeb",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "title",
+                    "icon": "sicon-format-text-alt",
+                    "type": "string",
+                    "label": "Title",
+                    "format": "text",
+                    "required": true,
+                    "placeholder": "Enter component title...",
+                    "value": "Lucky Wheel"
+                },
+                {
+                    "id": "content",
+                    "icon": "sicon-paragraph",
+                    "type": "string",
+                    "label": "Content",
+                    "format": "textarea",
+                    "required": false,
+                    "placeholder": "Enter component content...",
+                    "value": "This is a new Lucky Wheel component"
+                }
+            ]
+        },
+        {
+            "title": "Text Section",
+            "icon": "sicon-layout-grid",
+            "name": "text-section",
+            "key": "e5900ccb-a8c8-4764-b240-fc394948a0e4",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "title",
+                    "icon": "sicon-format-text-alt",
+                    "type": "string",
+                    "label": "Title",
+                    "format": "text",
+                    "required": true,
+                    "placeholder": "Enter component title...",
+                    "value": "Text Section"
+                },
+                {
+                    "id": "content",
+                    "icon": "sicon-paragraph",
+                    "type": "string",
+                    "label": "Content",
+                    "format": "textarea",
+                    "required": false,
+                    "placeholder": "Enter component content...",
+                    "value": "This is a new Text Section component"
+                }
+            ]
+        },
+        {
+            "title": "Image Text Section",
+            "icon": "sicon-layout-grid",
+            "name": "image-text-section",
+            "key": "649f53db-0fa5-48e0-b15a-7afe0f476abf",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "title",
+                    "icon": "sicon-format-text-alt",
+                    "type": "string",
+                    "label": "Title",
+                    "format": "text",
+                    "required": true,
+                    "placeholder": "Enter component title...",
+                    "value": "Image Text Section"
+                },
+                {
+                    "id": "content",
+                    "icon": "sicon-paragraph",
+                    "type": "string",
+                    "label": "Content",
+                    "format": "textarea",
+                    "required": false,
+                    "placeholder": "Enter component content...",
+                    "value": "This is a new Image Text Section component"
                 }
             ]
         }
