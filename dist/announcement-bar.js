@@ -1,16 +1,31 @@
-import { LitElement as f, css as b, html as d } from "lit";
-import { property as m, state as p } from "lit/decorators.js";
-var u = Object.defineProperty, n = (o, i, r, c) => {
-  for (var t = void 0, s = o.length - 1, l; s >= 0; s--)
-    (l = o[s]) && (t = l(i, r, t) || t);
-  return t && u(i, r, t), t;
+import { LitElement as b, html as f } from "lit";
+import { property as p, state as d } from "lit/decorators.js";
+var u = Object.defineProperty, c = (a, t, n, i) => {
+  for (var e = void 0, o = a.length - 1, s; o >= 0; o--)
+    (s = a[o]) && (e = s(t, n, e) || e);
+  return e && u(t, n, e), e;
 };
-const a = class a extends f {
+class r extends b {
   constructor() {
-    super(...arguments), this.visible = !0, this.secondsLeft = 60 * 60 * 24;
+    super(...arguments), this.visible = !0, this.secondsLeft = 0;
+  }
+  createRenderRoot() {
+    return this;
+  }
+  get cfg() {
+    var t, n, i, e, o, s, l;
+    return {
+      background: ((t = this.config) == null ? void 0 : t.background) ?? "linear-gradient(270deg,#ff416c,#ff4b2b,#ff416c)",
+      text_color: ((n = this.config) == null ? void 0 : n.text_color) ?? "#ffffff",
+      message: ((i = this.config) == null ? void 0 : i.message) ?? "🔥 خصم 20% لفترة محدودة",
+      button_text: ((e = this.config) == null ? void 0 : e.button_text) ?? "اطلب الآن",
+      button_link: ((o = this.config) == null ? void 0 : o.button_link) ?? "#",
+      button_color: ((s = this.config) == null ? void 0 : s.button_color) ?? "#ff416c",
+      countdown_seconds: ((l = this.config) == null ? void 0 : l.countdown_seconds) ?? 86400
+    };
   }
   connectedCallback() {
-    super.connectedCallback(), this.startTimer();
+    super.connectedCallback(), this.secondsLeft = this.cfg.countdown_seconds, this.startTimer();
   }
   disconnectedCallback() {
     super.disconnectedCallback(), this.timerInterval && clearInterval(this.timerInterval);
@@ -20,93 +35,61 @@ const a = class a extends f {
       this.secondsLeft > 0 ? this.secondsLeft-- : clearInterval(this.timerInterval);
     }, 1e3);
   }
-  closeBar() {
-    this.visible = !1;
-  }
-  formatTime(i) {
-    const r = Math.floor(i / 3600), c = Math.floor(i % 3600 / 60), t = i % 60;
-    return `${r}h ${c}m ${t}s`;
+  formatTime(t) {
+    const n = Math.floor(t / 3600), i = Math.floor(t % 3600 / 60), e = t % 60;
+    return `${n}h ${i}m ${e}s`;
   }
   render() {
-    return this.visible ? d`
-      <div id="smart-announcement-bar">
-        <div class="bar-content">
-          <span class="bar-text">🔥 خصم 20% لفترة محدودة</span>
-          <span id="bar-timer">${this.formatTime(this.secondsLeft)}</span>
-          <button class="bar-btn">اطلب الآن</button>
+    if (!this.visible) return f``;
+    const t = this.cfg;
+    return f`
+      <style>
+        .ab-bar {
+          position: fixed; top: 0; width: 100%; z-index: 9999;
+          background: ${t.background};
+          background-size: 600% 600%;
+          animation: ab-gradient 8s ease infinite;
+          color: ${t.text_color};
+          padding: 10px;
+          font-family: sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .ab-content { display: flex; justify-content: center; align-items: center; gap: 15px; }
+        .ab-btn {
+          background: ${t.text_color};
+          color: ${t.button_color};
+          border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px;
+          font-weight: 600; text-decoration: none; font-size: 14px;
+        }
+        .ab-close { position: absolute; right: 15px; cursor: pointer; font-size: 16px; }
+        @keyframes ab-gradient { 0%,100% { background-position: 0%; } 50% { background-position: 100%; } }
+        @media (max-width: 600px) { .ab-content { flex-direction: column; gap: 8px; } }
+      </style>
+      <div class="ab-bar" dir="rtl">
+        <div class="ab-content">
+          <span>${t.message}</span>
+          <span>${this.formatTime(this.secondsLeft)}</span>
+          <a class="ab-btn" href="${t.button_link}">${t.button_text}</a>
         </div>
-        <span class="close-bar" @click=${this.closeBar}>✖</span>
+        <span class="ab-close" @click="${() => {
+      this.visible = !1;
+    }}">✖</span>
       </div>
-    ` : d``;
+    `;
   }
-};
-a.styles = b`
-    :host {
-      display: block;
-    }
-
-    #smart-announcement-bar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 9999;
-      background: linear-gradient(270deg, #ff416c, #ff4b2b, #ff416c);
-      background-size: 600% 600%;
-      animation: gradientMove 8s ease infinite;
-      color: white;
-      padding: 10px;
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .bar-content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .bar-btn {
-      background: white;
-      color: #ff416c;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .close-bar {
-      position: absolute;
-      right: 15px;
-      cursor: pointer;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0%; }
-      50% { background-position: 100%; }
-      100% { background-position: 0%; }
-    }
-
-    @media (max-width: 600px) {
-      .bar-content {
-        flex-direction: column;
-        gap: 10px;
-      }
-    }
-  `;
-let e = a;
-n([
-  m({ type: Object })
-], e.prototype, "config");
-n([
-  p()
-], e.prototype, "visible");
-n([
-  p()
-], e.prototype, "secondsLeft");
-typeof e < "u" && e.registerSallaComponent("salla-announcement-bar");
+}
+c([
+  p({ type: Object })
+], r.prototype, "config");
+c([
+  d()
+], r.prototype, "visible");
+c([
+  d()
+], r.prototype, "secondsLeft");
+typeof r < "u" && r.registerSallaComponent("salla-announcement-bar");
 export {
-  e as AnnouncementBar
+  r as AnnouncementBar
 };

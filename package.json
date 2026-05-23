@@ -18,5 +18,8 @@
         "type": "git",
         "url": "https://github.com/TahaLeGen/tw-aesthetics-and-creativity"
     },
-    "private": true
+    "private": true,
+    "dependencies": {
+        "swiper": "^12.1.4"
+    }
 }

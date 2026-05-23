@@ -1,47 +1,74 @@
-import { LitElement as l, css as c, html as d } from "lit";
-import { property as m } from "lit/decorators.js";
-var p = Object.defineProperty, f = (n, t, r, u) => {
-  for (var e = void 0, o = n.length - 1, s; o >= 0; o--)
-    (s = n[o]) && (e = s(t, r, e) || e);
-  return e && p(t, r, e), e;
+import { LitElement as m, html as l } from "lit";
+import { property as c } from "lit/decorators.js";
+var f = Object.defineProperty, d = (n, r, o, a) => {
+  for (var e = void 0, t = n.length - 1, s; t >= 0; t--)
+    (s = n[t]) && (e = s(r, o, e) || e);
+  return e && f(r, o, e), e;
 };
-const a = class a extends l {
+class p extends m {
+  createRenderRoot() {
+    return this;
+  }
+  get cfg() {
+    var r, o, a, e, t;
+    return {
+      background: ((r = this.config) == null ? void 0 : r.background) ?? "rgba(22,22,26,0.98)",
+      text_color: ((o = this.config) == null ? void 0 : o.text_color) ?? "#ffffff",
+      speed: ((a = this.config) == null ? void 0 : a.speed) ?? 25,
+      separator: ((e = this.config) == null ? void 0 : e.separator) ?? "✦",
+      items: ((t = this.config) == null ? void 0 : t.items) ?? [
+        { text: "تصميم إبداعي" },
+        { text: "تجربة مستخدم استثنائية" },
+        { text: "أداء عالي السرعة" },
+        { text: "واجهات حديثة" },
+        { text: "تطوير متقدم" },
+        { text: "حلول رقمية متكاملة" }
+      ]
+    };
+  }
   render() {
-    var t, r;
-    return d`
-      <div class="marquee">
-        <h3 class="marquee-title">${((t = this.config) == null ? void 0 : t.title) || "Marquee"}</h3>
-        <div class="marquee-content">
-          ${((r = this.config) == null ? void 0 : r.content) || "This is a new Marquee component"}
+    const { background: r, text_color: o, speed: a, separator: e, items: t } = this.cfg, s = [...t, ...t];
+    return l`
+      <style>
+        .mq-section {
+          overflow: hidden; width: 100%;
+          background: ${r};
+          border-top: 1px solid rgba(255,255,255,0.06);
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+          padding: 1rem 0; direction: rtl;
+        }
+        .mq-track { display: flex; width: max-content; animation: mq-scroll ${a}s linear infinite; }
+        .mq-track:hover { animation-play-state: paused; }
+        .mq-item {
+          display: inline-flex; align-items: center; gap: 1rem;
+          padding: 0 1.5rem; white-space: nowrap;
+          font-size: 1rem; font-weight: 500; color: ${o};
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .mq-separator { color: rgba(255,255,255,0.3); font-size: 0.6rem; }
+        @keyframes mq-scroll {
+          0%   { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
+      </style>
+      <div class="mq-section">
+        <div class="mq-track">
+          ${s.map((i) => l`
+            <span class="mq-item">
+              ${i.icon ? l`<span>${i.icon}</span>` : ""}
+              ${i.text}
+              <span class="mq-separator">${e}</span>
+            </span>
+          `)}
         </div>
       </div>
     `;
   }
-};
-a.styles = c`
-    :host {
-      display: block;
-    }
-    .marquee {
-      padding: 1rem;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-    .marquee-title {
-      font-weight: 500;
-      color: #2c3e50;
-      margin: 0 0 1rem;
-    }
-    .marquee-content {
-      color: #666;
-    }
-  `;
-let i = a;
-f([
-  m({ type: Object })
-], i.prototype, "config");
-typeof i < "u" && i.registerSallaComponent("salla-marquee");
+}
+d([
+  c({ type: Object })
+], p.prototype, "config");
+typeof p < "u" && p.registerSallaComponent("salla-marquee");
 export {
-  i as default
+  p as MarqueeComponent
 };

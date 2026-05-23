@@ -11,245 +11,768 @@
     "support_url": "",
     "repository": "https://github.com/TahaLeGen/tw-aesthetics-and-creativity",
     "components": [
-      
+        {
+            "title": "Links",
+            "icon": "sicon-layout-grid",
+            "name": "links",
+            "key": "2dea768e-8033-44ce-ad7b-1298791fbe1d",
+            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
+            "fields": [
+                {
+                    "id": "section_title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "عنوان القسم",
+                    "icon": "sicon-format-text-alt",
+                    "placeholder": "Explore Our Global Network",
+                    "value": "Explore Our Global Network",
+                    "multilanguage": true,
+                    "required": false,
+                    "minLength": "1",
+                    "maxLength": "120"
+                },
+                {
+                    "id": "section_description",
+                    "type": "string",
+                    "format": "textarea",
+                    "label": "وصف القسم",
+                    "icon": "sicon-paragraph",
+                    "placeholder": "Discover specialized hubs...",
+                    "value": "Discover specialized hubs, regional ecosystems, and open-source documentation.",
+                    "multilanguage": true,
+                    "required": false,
+                    "minLength": "1",
+                    "maxLength": "512"
+                },
+                {
+                    "id": "background",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون الخلفية",
+                    "icon": "sicon-format-fill",
+                    "value": "#16161a",
+                    "required": false
+                },
+                {
+                    "id": "slides_per_view_mobile",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "عدد البطاقات في الجوال",
+                    "icon": "sicon-keyboard_arrow_down",
+                    "selected": [{ "label": "1", "value": 1, "key": "spvm-1" }],
+                    "options": [
+                        { "label": "1", "value": 1, "key": "spvm-1" },
+                        { "label": "2", "value": 2, "key": "spvm-2" }
+                    ],
+                    "source": "Manual",
+                    "multichoice": false,
+                    "searchable": false,
+                    "required": false
+                },
+                {
+                    "id": "slides_per_view_tablet",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "عدد البطاقات في التابلت",
+                    "icon": "sicon-keyboard_arrow_down",
+                    "selected": [{ "label": "2", "value": 2, "key": "spvt-2" }],
+                    "options": [
+                        { "label": "1", "value": 1, "key": "spvt-1" },
+                        { "label": "2", "value": 2, "key": "spvt-2" },
+                        { "label": "3", "value": 3, "key": "spvt-3" }
+                    ],
+                    "source": "Manual",
+                    "multichoice": false,
+                    "searchable": false,
+                    "required": false
+                },
+                {
+                    "id": "slides_per_view_desktop",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "عدد البطاقات في الشاشة الكبيرة",
+                    "icon": "sicon-keyboard_arrow_down",
+                    "selected": [{ "label": "4", "value": 4, "key": "spvd-4" }],
+                    "options": [
+                        { "label": "2", "value": 2, "key": "spvd-2" },
+                        { "label": "3", "value": 3, "key": "spvd-3" },
+                        { "label": "4", "value": 4, "key": "spvd-4" },
+                        { "label": "5", "value": 5, "key": "spvd-5" }
+                    ],
+                    "source": "Manual",
+                    "multichoice": false,
+                    "searchable": false,
+                    "required": false
+                },
+                {
+                    "id": "items",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "الروابط",
+                    "icon": "sicon-list-add",
+                    "fields": [
+                        {
+                            "id": "items.title",
+                            "type": "string",
+                            "format": "text",
+                            "label": "العنوان",
+                            "icon": "sicon-format-text-alt",
+                            "placeholder": "Developer Portal",
+                            "value": null,
+                            "multilanguage": true,
+                            "required": true,
+                            "minLength": "1",
+                            "maxLength": "80"
+                        },
+                        {
+                            "id": "items.link",
+                            "type": "string",
+                            "format": "url",
+                            "inputType": "url",
+                            "label": "الرابط",
+                            "icon": "sicon-link",
+                            "placeholder": "https://",
+                            "value": null,
+                            "required": false,
+                            "minLength": 1,
+                            "maxLength": 512
+                        },
+                        {
+                            "id": "items.image",
+                            "type": "string",
+                            "format": "image",
+                            "label": "الصورة",
+                            "icon": "sicon-image",
+                            "placeholder": "e.g. https://hostname.com/image.png",
+                            "value": null,
+                            "required": false
+                        }
+                    ],
+                    "value": [],
+                    "minLength": 1,
+                    "maxLength": 20
+                }
+            ]
+        },
         {
             "title": "Flash Sale Banners",
-            "icon": "sicon-layout-grid",
+            "icon": "sicon-tag",
             "name": "flash-sale-banners",
             "key": "3c3a0413-1b5a-49d0-8edf-21799d57bed3",
             "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
             "fields": [
                 {
                     "id": "title",
-                    "icon": "sicon-format-text-alt",
                     "type": "string",
-                    "label": "Title",
                     "format": "text",
+                    "label": "عنوان البانر",
+                    "icon": "sicon-format-text-alt",
+                    "placeholder": "Flash Sale",
+                    "value": "Flash Sale",
+                    "multilanguage": true,
                     "required": true,
-                    "placeholder": "Enter component title...",
-                    "value": "Banner"
+                    "minLength": "1",
+                    "maxLength": "120"
                 },
                 {
-                    "id": "content",
+                    "id": "promo_text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "النص الترويجي",
                     "icon": "sicon-paragraph",
-                    "type": "string",
-                    "label": "Content",
-                    "format": "textarea",
+                    "placeholder": "Limited time offer",
+                    "value": "Limited time offer",
+                    "multilanguage": true,
                     "required": false,
-                    "placeholder": "Enter component content...",
-                    "value": "This is a new Banner component"
-                }
-            ]
-        },
-        {
-            "title": "Product Label",
-            "icon": "sicon-tag",
-            "name": "product-labels",
-            "key": "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6",
-            "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
-            "fields": [
-                {
-                    "id": "type",
-                    "icon": "sicon-keyboard_arrow_down",
-                    "type": "items",
-                    "format": "dropdown-list",
-                    "label": "نوع البطاقة",
-                    "description": "اختر نوع البطاقة المراد عرضها",
-                    "required": true,
-                    "selected": [
-                        {
-                            "label": "جديد",
-                            "value": "new",
-                            "key": "new-key"
-                        }
-                    ],
-                    "options": [
-                        {
-                            "label": "جديد",
-                            "value": "new",
-                            "key": "new-key"
-                        },
-                        {
-                            "label": "تخفيض",
-                            "value": "sale",
-                            "key": "sale-key"
-                        },
-                        {
-                            "label": "ساخن",
-                            "value": "hot",
-                            "key": "hot-key"
-                        }
-                    ],
-                    "source": "Manual",
-                    "multichoice": false,
-                    "searchable": true
+                    "minLength": "1",
+                    "maxLength": "256"
                 },
                 {
-                    "id": "text",
+                    "id": "discount",
+                    "type": "string",
+                    "format": "text",
+                    "label": "نص شارة الخصم",
+                    "icon": "sicon-tag",
+                    "placeholder": "20%",
+                    "value": "",
+                    "required": false,
+                    "minLength": "1",
+                    "maxLength": "10"
+                },
+                {
+                    "id": "background",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون الخلفية",
+                    "icon": "sicon-format-fill",
+                    "value": "#667eea",
+                    "required": false
+                },
+                {
+                    "id": "primary_color",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "اللون الرئيسي (الزر والعداد)",
+                    "icon": "sicon-format-fill",
+                    "value": "#ff4757",
+                    "required": false
+                },
+                {
+                    "id": "badge_color",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون شارة الخصم",
+                    "icon": "sicon-format-fill",
+                    "value": "#ffa502",
+                    "required": false
+                },
+                {
+                    "id": "button_text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "نص الزر",
                     "icon": "sicon-format-text-alt",
-                    "type": "string",
-                    "format": "text",
-                    "label": "نص البطاقة",
-                    "description": "النص الذي سيظهر على البطاقة",
-                    "placeholder": "أدخل النص... مثال: جديد الآن",
-                    "value": "جديد",
-                    "required": true
+                    "placeholder": "Shop Now",
+                    "value": "Shop Now",
+                    "multilanguage": true,
+                    "required": false,
+                    "minLength": "1",
+                    "maxLength": "60"
                 },
                 {
-                    "id": "icon",
-                    "icon": "sicon-emoji-smile",
+                    "id": "button_link",
                     "type": "string",
-                    "format": "text",
-                    "label": "الرمز (Emoji)",
-                    "description": "ضع أي Emoji تريده أو نص قصير",
-                    "placeholder": "مثال: ✨ أو 🔥 أو 🌟",
-                    "value": "✨",
+                    "format": "url",
+                    "inputType": "url",
+                    "label": "رابط الزر",
+                    "icon": "sicon-link",
+                    "placeholder": "https://",
+                    "value": null,
+                    "required": false,
+                    "minLength": 1,
+                    "maxLength": 512
+                },
+                {
+                    "id": "expiration_date",
+                    "type": "string",
+                    "format": "datetime",
+                    "inputType": "datetime-local",
+                    "label": "تاريخ انتهاء العرض",
+                    "description": null,
+                    "labelHTML": null,
+                    "icon": "sicon-calendar-time",
+                    "value": "2024-10-01T15:23",
                     "required": false
                 }
             ]
         },
         {
             "title": "Announcement Bar",
-            "icon": "sicon-layout-grid",
+            "icon": "sicon-megaphone",
             "name": "announcement-bar",
             "key": "2dea768e-8033-44ce-ad7b-1298791fze1d",
             "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
             "fields": [
                 {
-                    "id": "title",
-                    "icon": "sicon-format-text-alt",
+                    "id": "message",
                     "type": "string",
-                    "label": "Title",
                     "format": "text",
+                    "label": "نص الإعلان",
+                    "icon": "sicon-format-text-alt",
+                    "placeholder": "🔥 خصم 20% لفترة محدودة",
+                    "value": "🔥 خصم 20% لفترة محدودة",
+                    "multilanguage": true,
                     "required": true,
-                    "placeholder": "Enter component title...",
-                    "value": "Announcement Bar"
+                    "minLength": "1",
+                    "maxLength": "256"
                 },
                 {
-                    "id": "content",
-                    "icon": "sicon-paragraph",
+                    "id": "background",
                     "type": "string",
-                    "label": "Content",
-                    "format": "textarea",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون الخلفية",
+                    "icon": "sicon-format-fill",
+                    "value": "#ff416c",
+                    "required": false
+                },
+                {
+                    "id": "text_color",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون النص",
+                    "icon": "sicon-format-fill",
+                    "value": "#ffffff",
+                    "required": false
+                },
+                {
+                    "id": "button_text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "نص الزر",
+                    "icon": "sicon-format-text-alt",
+                    "placeholder": "اطلب الآن",
+                    "value": "اطلب الآن",
+                    "multilanguage": true,
                     "required": false,
-                    "placeholder": "Enter component content...",
-                    "value": "This is a new Announcement Bar component"
+                    "minLength": "1",
+                    "maxLength": "60"
+                },
+                {
+                    "id": "button_link",
+                    "type": "string",
+                    "format": "url",
+                    "inputType": "url",
+                    "label": "رابط الزر",
+                    "icon": "sicon-link",
+                    "placeholder": "https://",
+                    "value": null,
+                    "required": false,
+                    "minLength": 1,
+                    "maxLength": 512
+                },
+                {
+                    "id": "button_color",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون نص الزر",
+                    "icon": "sicon-format-fill",
+                    "value": "#ff416c",
+                    "required": false
+                },
+                {
+                    "id": "countdown_seconds",
+                    "type": "number",
+                    "format": "number",
+                    "label": "مدة العداد التنازلي (بالثواني)",
+                    "icon": "sicon-clock",
+                    "placeholder": "86400",
+                    "value": 86400,
+                    "required": false,
+                    "min": 60,
+                    "max": 604800
                 }
             ]
         },
         {
             "title": "Marquee",
-            "icon": "sicon-layout-grid",
+            "icon": "sicon-repeat",
             "name": "marquee",
             "key": "04522c3d-69d6-470e-abc5-7abaeacc4e3d",
             "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
             "fields": [
                 {
-                    "id": "title",
-                    "icon": "sicon-format-text-alt",
+                    "id": "background",
                     "type": "string",
-                    "label": "Title",
-                    "format": "text",
-                    "required": true,
-                    "placeholder": "Enter component title...",
-                    "value": "Marquee"
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون الخلفية",
+                    "icon": "sicon-format-fill",
+                    "value": "#16161a",
+                    "required": false
                 },
                 {
-                    "id": "content",
-                    "icon": "sicon-paragraph",
+                    "id": "text_color",
                     "type": "string",
-                    "label": "Content",
-                    "format": "textarea",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون النص",
+                    "icon": "sicon-format-fill",
+                    "value": "#ffffff",
+                    "required": false
+                },
+                {
+                    "id": "speed",
+                    "type": "number",
+                    "format": "number",
+                    "label": "سرعة الحركة (ثانية لدورة كاملة)",
+                    "icon": "sicon-clock",
+                    "placeholder": "25",
+                    "value": 25,
                     "required": false,
-                    "placeholder": "Enter component content...",
-                    "value": "This is a new Marquee component"
+                    "min": 5,
+                    "max": 120
+                },
+                {
+                    "id": "separator",
+                    "type": "string",
+                    "format": "text",
+                    "label": "الفاصل بين العناصر",
+                    "icon": "sicon-format-text-alt",
+                    "placeholder": "✦",
+                    "value": "✦",
+                    "required": false,
+                    "minLength": "1",
+                    "maxLength": "5"
+                },
+                {
+                    "id": "items",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "عناصر الشريط",
+                    "icon": "sicon-list-add",
+                    "fields": [
+                        {
+                            "id": "items.text",
+                            "type": "string",
+                            "format": "text",
+                            "label": "النص",
+                            "icon": "sicon-format-text-alt",
+                            "placeholder": "تصميم إبداعي",
+                            "value": null,
+                            "multilanguage": true,
+                            "required": true,
+                            "minLength": "1",
+                            "maxLength": "120"
+                        },
+                        {
+                            "id": "items.icon",
+                            "type": "string",
+                            "format": "text",
+                            "label": "أيقونة (اختياري)",
+                            "icon": "sicon-star",
+                            "placeholder": "⭐",
+                            "value": null,
+                            "required": false,
+                            "minLength": "1",
+                            "maxLength": "10"
+                        }
+                    ],
+                    "value": [],
+                    "minLength": 1,
+                    "maxLength": 30
                 }
             ]
         },
         {
             "title": "Lucky Wheel",
-            "icon": "sicon-layout-grid",
+            "icon": "sicon-gift",
             "name": "lucky-wheel",
             "key": "14664420-f22a-4485-97fd-886a1b22cbeb",
             "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
             "fields": [
                 {
-                    "id": "title",
-                    "icon": "sicon-format-text-alt",
+                    "id": "background",
                     "type": "string",
-                    "label": "Title",
-                    "format": "text",
-                    "required": true,
-                    "placeholder": "Enter component title...",
-                    "value": "Lucky Wheel"
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون خلفية البطاقة",
+                    "icon": "sicon-format-fill",
+                    "value": "#0f171e",
+                    "required": false
                 },
                 {
-                    "id": "content",
-                    "icon": "sicon-paragraph",
-                    "type": "string",
-                    "label": "Content",
-                    "format": "textarea",
-                    "required": false,
-                    "placeholder": "Enter component content...",
-                    "value": "This is a new Lucky Wheel component"
+                    "id": "max_attempts",
+                    "type": "items",
+                    "format": "dropdown-list",
+                    "label": "عدد المحاولات المسموحة",
+                    "icon": "sicon-keyboard_arrow_down",
+                    "selected": [{ "label": "3", "value": 3, "key": "ma-3" }],
+                    "options": [
+                        { "label": "1", "value": 1, "key": "ma-1" },
+                        { "label": "2", "value": 2, "key": "ma-2" },
+                        { "label": "3", "value": 3, "key": "ma-3" },
+                        { "label": "5", "value": 5, "key": "ma-5" },
+                        { "label": "10", "value": 10, "key": "ma-10" }
+                    ],
+                    "source": "Manual",
+                    "multichoice": false,
+                    "searchable": false,
+                    "required": true
+                },
+                {
+                    "id": "sections",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "أقسام العجلة",
+                    "icon": "sicon-list-add",
+                    "fields": [
+                        {
+                            "id": "sections.label",
+                            "type": "string",
+                            "format": "text",
+                            "label": "اسم القسم",
+                            "icon": "sicon-format-text-alt",
+                            "placeholder": "جائزة",
+                            "value": null,
+                            "multilanguage": true,
+                            "required": true,
+                            "minLength": "1",
+                            "maxLength": "20"
+                        },
+                        {
+                            "id": "sections.color",
+                            "type": "string",
+                            "format": "color",
+                            "inputType": "color",
+                            "label": "لون القسم",
+                            "icon": "sicon-format-fill",
+                            "value": "#16a085",
+                            "required": true
+                        },
+                        {
+                            "id": "sections.isGift",
+                            "type": "boolean",
+                            "format": "switch",
+                            "label": "هذا القسم هو الجائزة الرئيسية",
+                            "icon": "sicon-toggle-off",
+                            "value": false,
+                            "selected": false,
+                            "required": false
+                        },
+                        {
+                            "id": "sections.promoCode",
+                            "type": "string",
+                            "format": "text",
+                            "label": "كود الخصم عند الفوز",
+                            "icon": "sicon-tag",
+                            "placeholder": "WINNER2024",
+                            "value": null,
+                            "required": false,
+                            "minLength": "1",
+                            "maxLength": "50",
+                            "conditions": [
+                                {
+                                    "id": "sections.isGift",
+                                    "operation": "=",
+                                    "value": true,
+                                    "collection_id": "sections",
+                                    "value_index": "."
+                                }
+                            ]
+                        }
+                    ],
+                    "value": [],
+                    "minLength": 5,
+                    "maxLength": 6
                 }
             ]
         },
         {
             "title": "Text Section",
-            "icon": "sicon-layout-grid",
+            "icon": "sicon-paragraph",
             "name": "text-section",
             "key": "e5900ccb-a8c8-4764-b240-fc394948a0e4",
             "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
             "fields": [
                 {
-                    "id": "title",
-                    "icon": "sicon-format-text-alt",
+                    "id": "background",
                     "type": "string",
-                    "label": "Title",
-                    "format": "text",
-                    "required": true,
-                    "placeholder": "Enter component title...",
-                    "value": "Text Section"
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون الخلفية",
+                    "icon": "sicon-format-fill",
+                    "value": "#121214",
+                    "required": false
                 },
                 {
-                    "id": "content",
-                    "icon": "sicon-paragraph",
+                    "id": "text_color",
                     "type": "string",
-                    "label": "Content",
-                    "format": "textarea",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون النص",
+                    "icon": "sicon-format-fill",
+                    "value": "#ffffff",
+                    "required": false
+                },
+                {
+                    "id": "accent_color",
+                    "type": "string",
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون التمييز (العنوان الفرعي)",
+                    "icon": "sicon-format-fill",
+                    "value": "#60a5fa",
+                    "required": false
+                },
+                {
+                    "id": "section_subtitle",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان الفرعي",
+                    "icon": "sicon-format-text-alt",
+                    "placeholder": "SCALABLE ARCHITECTURE FOR MODERN APPLICATIONS",
+                    "value": "SCALABLE ARCHITECTURE FOR MODERN APPLICATIONS",
+                    "multilanguage": true,
                     "required": false,
-                    "placeholder": "Enter component content...",
-                    "value": "This is a new Text Section component"
+                    "minLength": "1",
+                    "maxLength": "120"
+                },
+                {
+                    "id": "section_title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان الرئيسي",
+                    "icon": "sicon-format-text-alt",
+                    "placeholder": "Building the Future Infrastructure",
+                    "value": "Building the Future Infrastructure",
+                    "multilanguage": true,
+                    "required": true,
+                    "minLength": "1",
+                    "maxLength": "120"
+                },
+                {
+                    "id": "main_paragraph",
+                    "type": "string",
+                    "format": "textarea",
+                    "label": "الفقرة الرئيسية",
+                    "icon": "sicon-paragraph",
+                    "placeholder": "اكتب النص هنا...",
+                    "value": "Our core framework is designed from the ground up to solve complex distributed systems challenges seamlessly.",
+                    "multilanguage": true,
+                    "required": false,
+                    "minLength": "1",
+                    "maxLength": "2000"
+                },
+                {
+                    "id": "side_blocks",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "البلوكات الجانبية",
+                    "icon": "sicon-list-add",
+                    "fields": [
+                        {
+                            "id": "side_blocks.title",
+                            "type": "string",
+                            "format": "text",
+                            "label": "عنوان البلوك",
+                            "icon": "sicon-format-text-alt",
+                            "placeholder": "99.9% Uptime",
+                            "value": null,
+                            "multilanguage": true,
+                            "required": true,
+                            "minLength": "1",
+                            "maxLength": "80"
+                        },
+                        {
+                            "id": "side_blocks.description",
+                            "type": "string",
+                            "format": "textarea",
+                            "label": "وصف البلوك",
+                            "icon": "sicon-paragraph",
+                            "placeholder": "اكتب الوصف هنا...",
+                            "value": null,
+                            "multilanguage": true,
+                            "required": false,
+                            "minLength": "1",
+                            "maxLength": "512"
+                        }
+                    ],
+                    "value": [],
+                    "minLength": 1,
+                    "maxLength": 6
                 }
             ]
         },
         {
             "title": "Image Text Section",
-            "icon": "sicon-layout-grid",
+            "icon": "sicon-image",
             "name": "image-text-section",
             "key": "649f53db-0fa5-48e0-b15a-7afe0f476abf",
             "image": "https://cdn.salla.network/images/themes/default/placeholder.jpg",
             "fields": [
                 {
-                    "id": "title",
-                    "icon": "sicon-format-text-alt",
+                    "id": "background",
                     "type": "string",
-                    "label": "Title",
-                    "format": "text",
-                    "required": true,
-                    "placeholder": "Enter component title...",
-                    "value": "Image Text Section"
+                    "format": "color",
+                    "inputType": "color",
+                    "label": "لون الخلفية",
+                    "icon": "sicon-format-fill",
+                    "value": "#ffffff",
+                    "required": false
                 },
                 {
-                    "id": "content",
-                    "icon": "sicon-paragraph",
+                    "id": "title",
                     "type": "string",
-                    "label": "Content",
+                    "format": "text",
+                    "label": "العنوان",
+                    "icon": "sicon-format-text-alt",
+                    "placeholder": "Morning Set",
+                    "value": "Morning Set",
+                    "multilanguage": true,
+                    "required": true,
+                    "minLength": "1",
+                    "maxLength": "120"
+                },
+                {
+                    "id": "description",
+                    "type": "string",
                     "format": "textarea",
+                    "label": "الوصف",
+                    "icon": "sicon-paragraph",
+                    "placeholder": "اكتب الوصف هنا...",
+                    "value": "Set of coffee and chocolate cookies as a top tier among our customers.",
+                    "multilanguage": true,
                     "required": false,
-                    "placeholder": "Enter component content...",
-                    "value": "This is a new Image Text Section component"
+                    "minLength": "1",
+                    "maxLength": "512"
+                },
+                {
+                    "id": "image",
+                    "type": "string",
+                    "format": "image",
+                    "label": "الصورة",
+                    "icon": "sicon-image",
+                    "placeholder": "e.g. https://hostname.com/image.png",
+                    "value": null,
+                    "required": false
+                },
+                {
+                    "id": "button_text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "نص الزر",
+                    "icon": "sicon-format-text-alt",
+                    "placeholder": "READ MORE",
+                    "value": "READ MORE",
+                    "multilanguage": true,
+                    "required": false,
+                    "minLength": "1",
+                    "maxLength": "60"
+                },
+                {
+                    "id": "button_link",
+                    "type": "string",
+                    "format": "url",
+                    "inputType": "url",
+                    "label": "رابط الزر",
+                    "icon": "sicon-link",
+                    "placeholder": "https://",
+                    "value": null,
+                    "required": false,
+                    "minLength": 1,
+                    "maxLength": 512
+                },
+                {
+                    "id": "tags",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "الوسوم",
+                    "icon": "sicon-list-add",
+                    "fields": [
+                        {
+                            "id": "tags.label",
+                            "type": "string",
+                            "format": "text",
+                            "label": "الوسم",
+                            "icon": "sicon-tag",
+                            "placeholder": "sugar",
+                            "value": null,
+                            "multilanguage": true,
+                            "required": true,
+                            "minLength": "1",
+                            "maxLength": "40"
+                        }
+                    ],
+                    "value": [],
+                    "minLength": 0,
+                    "maxLength": 10
                 }
             ]
         }

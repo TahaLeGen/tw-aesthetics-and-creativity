@@ -7,7 +7,7 @@ export default defineConfig({
     sallaBuildPlugin(),
     sallaDemoPlugin({
       // Show only specific components
-      components: ["links", "announcement-bar", "flash-sale-banners", "product-labels"],
+      components: ["links", "announcement-bar", "flash-sale-banners","image-text-section","marquee","text-section","lucky-wheel"],
       
       // Customize grid layout
       grid: {

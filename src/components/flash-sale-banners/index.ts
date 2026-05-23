@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement, html } from 'lit';
+import { property, state } from 'lit/decorators.js';
 
 interface TimerState {
   hours: number;
@@ -7,475 +7,112 @@ interface TimerState {
   seconds: number;
 }
 
-export default class FlashSaleBanner extends LitElement {
-  @property({ type: String })
-  title?: string;
+export class FlashSaleBanner extends LitElement {
+  @property({ type: Object }) config?: Record<string, any>;
 
-  @property({ type: String })
-  promoText?: string;
-
-  @property({ type: String })
-  buttonText?: string;
-
-  @property({ type: String })
-  discount?: string;
-
-  @property({ type: String })
-  backgroundColor?: string;
-
-  @property({ type: Number })
-  endTime?: number;
-
-  @property({ type: String })
-  primaryColor?: string;
-
-  @property({ type: String })
-  badgeColor?: string;
-
-  static styles = css`
-    :host {
-      --primary-color: #ff4757;
-      --secondary-color: #2f3542;
-      --text-color: #ffffff;
-      --badge-color: #ffa502;
-      --hover-scale: 1.05;
-      --transition-duration: 300ms;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    .banner-container {
-      position: relative;
-      width: 100%;
-      min-height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--banner-bg, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
-      background-size: cover;
-      background-position: center;
-      overflow: hidden;
-      border-radius: 8px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Animated background overlay */
-    .banner-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: 1;
-      animation: fadeIn 0.6s ease-in;
-    }
-
-    /* Content wrapper */
-    .banner-content {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      text-align: center;
-      gap: 20px;
-    }
-
-    /* Discount badge */
-    .discount-badge {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: var(--badge-color);
-      color: #000;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      font-weight: bold;
-      z-index: 3;
-      box-shadow: 0 5px 15px rgba(255, 165, 2, 0.3);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    /* Headline styling */
-    .headline {
-      font-size: clamp(28px, 8vw, 56px);
-      font-weight: 900;
-      color: var(--text-color);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 10px;
-      animation: slideDown 0.6s ease-out;
-      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Promotional text */
-    .promo-text {
-      font-size: clamp(14px, 3vw, 18px);
-      color: var(--text-color);
-      font-weight: 300;
-      letter-spacing: 1px;
-      margin-bottom: 30px;
-      animation: slideUp 0.6s ease-out 0.2s both;
-      opacity: 0.95;
-    }
-
-    /* Timer container */
-    .timer-container {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-      animation: slideUp 0.6s ease-out 0.4s both;
-    }
-
-    .timer-unit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .timer-box {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-radius: 8px;
-      width: 70px;
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      font-weight: bold;
-      color: var(--primary-color);
-      transition: all var(--transition-duration) ease;
-      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-      animation: timerPulse 1s ease-in-out infinite;
-    }
-
-    .timer-box:hover {
-      transform: scale(var(--hover-scale));
-      border-color: rgba(255, 255, 255, 0.6);
-      box-shadow: 0 8px 32px rgba(255, 71, 87, 0.5);
-    }
-
-    .timer-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: rgba(255, 255, 255, 0.8);
-      font-weight: 600;
-    }
-
-    /* Responsive timer sizes */
-    @media (max-width: 600px) {
-      .timer-box {
-        width: 60px;
-        height: 60px;
-        font-size: 24px;
-      }
-
-      .timer-label {
-        font-size: 10px;
-      }
-    }
-
-    /* CTA Button */
-    .cta-button {
-      padding: 16px 48px;
-      font-size: clamp(14px, 2.5vw, 18px);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      background: var(--primary-color);
-      color: var(--text-color);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all var(--transition-duration) ease;
-      box-shadow: 0 8px 24px rgba(255, 71, 87, 0.4);
-      animation: slideUp 0.6s ease-out 0.6s both;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-button::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
-
-    .cta-button:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(255, 71, 87, 0.6);
-      background: #ff3838;
-    }
-
-    .cta-button:hover::before {
-      width: 400px;
-      height: 400px;
-    }
-
-    .cta-button:active {
-      transform: translateY(-2px);
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes pulse {
-      0%,
-      100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.1);
-      }
-    }
-
-    @keyframes timerPulse {
-      0%,
-      100% {
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-      }
-      50% {
-        box-shadow: 0 8px 32px rgba(255, 71, 87, 0.3);
-      }
-    }
-
-    /* Responsive design */
-    @media (max-width: 768px) {
-      .banner-container {
-        min-height: 280px;
-      }
-
-      .banner-content {
-        padding: 30px 15px;
-        gap: 15px;
-      }
-
-      .discount-badge {
-        width: 70px;
-        height: 70px;
-        font-size: 22px;
-        top: 15px;
-        right: 15px;
-      }
-
-      .timer-container {
-        gap: 10px;
-        margin-bottom: 20px;
-      }
-
-      .promo-text {
-        margin-bottom: 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .banner-container {
-        min-height: 250px;
-        border-radius: 4px;
-      }
-
-      .banner-content {
-        padding: 20px 10px;
-        gap: 12px;
-      }
-
-      .discount-badge {
-        width: 60px;
-        height: 60px;
-        font-size: 18px;
-        top: 10px;
-        right: 10px;
-      }
-
-      .cta-button {
-        padding: 12px 36px;
-      }
-
-      .timer-container {
-        gap: 8px;
-        margin-bottom: 15px;
-      }
-    }
-  `;
-
-  // Internal state
-  private timerState: TimerState = {
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  };
-
+  @state() private timerState: TimerState = { hours: 0, minutes: 0, seconds: 0 };
   private timerId: number | null = null;
 
-  // Lifecycle methods
-  connectedCallback(): void {
+  protected createRenderRoot() { return this; }
+
+  private get cfg() {
+    const expirationDate = this.config?.['expiration_date'];
+    const endTime = expirationDate
+      ? new Date(expirationDate).getTime()
+      : Date.now() + 3600000;
+
+    return {
+      background:    this.config?.['background']    ?? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      primary_color: this.config?.['primary_color'] ?? '#ff4757',
+      badge_color:   this.config?.['badge_color']   ?? '#ffa502',
+      title:         this.config?.['title']         ?? 'Flash Sale',
+      promo_text:    this.config?.['promo_text']    ?? 'Limited time offer',
+      button_text:   this.config?.['button_text']   ?? 'Shop Now',
+      button_link:   this.config?.['button_link']   ?? '#',
+      discount:      this.config?.['discount']      ?? '',
+      end_time:      endTime,
+    };
+  }
+
+  connectedCallback() {
     super.connectedCallback();
     this.updateTimer();
     this.startTimer();
   }
 
-  disconnectedCallback(): void {
+  disconnectedCallback() {
     super.disconnectedCallback();
     this.stopTimer();
   }
 
-  // Timer management
-  private startTimer(): void {
-    if (this.timerId !== null) {
-      return;
-    }
-
-    this.timerId = window.setInterval(() => {
-      this.updateTimer();
-    }, 1000);
+  private startTimer() {
+    if (this.timerId !== null) return;
+    this.timerId = window.setInterval(() => this.updateTimer(), 1000);
   }
 
-  private stopTimer(): void {
+  private stopTimer() {
     if (this.timerId !== null) {
       clearInterval(this.timerId);
       this.timerId = null;
     }
   }
 
-  private updateTimer(): void {
-    const now = Date.now();
-    const difference = (this.endTime ?? Date.now() + 3600000) - now;
-
-    if (difference <= 0) {
+  private updateTimer() {
+    const diff = this.cfg.end_time - Date.now();
+    if (diff <= 0) {
       this.timerState = { hours: 0, minutes: 0, seconds: 0 };
       this.stopTimer();
-      this.dispatchEvent(
-        new CustomEvent('timer-expired', {
-          detail: { expired: true },
-          bubbles: true,
-          composed: true,
-        })
-      );
       return;
     }
-
-    const totalSeconds = Math.floor(difference / 1000);
+    const total = Math.floor(diff / 1000);
     this.timerState = {
-      hours: Math.floor(totalSeconds / 3600) % 24,
-      minutes: Math.floor((totalSeconds % 3600) / 60),
-      seconds: totalSeconds % 60,
+      hours:   Math.floor(total / 3600) % 24,
+      minutes: Math.floor((total % 3600) / 60),
+      seconds: total % 60,
     };
-
     this.requestUpdate();
   }
 
-  // Event handlers
-  private handleButtonClick(): void {
-    this.dispatchEvent(
-      new CustomEvent('cta-clicked', {
-        detail: { timestamp: Date.now() },
-        bubbles: true,
-        composed: true,
-      })
-    );
-  }
-
-  // Helper method for zero-padding numbers
-  private padNumber(num: number): string {
-    return String(num).padStart(2, '0');
-  }
+  private pad(n: number) { return String(n).padStart(2, '0'); }
 
   render() {
-    const bgColor = this.backgroundColor || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-    const primaryColor = this.primaryColor || '#ff4757';
-    const badgeColor = this.badgeColor || '#ffa502';
-
+    const c = this.cfg;
     return html`
-      <div class="banner-container" style="--banner-bg: ${bgColor}; --primary-color: ${primaryColor}; --badge-color: ${badgeColor};">
-        <div class="banner-overlay"></div>
-        <div class="banner-content">
-          ${this.discount ? html`<div class="discount-badge">${this.discount}</div>` : null}
-
-          <h1 class="headline">${this.title || 'Flash Sale'}</h1>
-
-          <p class="promo-text">${this.promoText || 'Limited time offer'}</p>
-
-          <div class="timer-container">
-            <div class="timer-unit">
-              <div class="timer-box">${this.padNumber(this.timerState.hours)}</div>
-              <span class="timer-label">Hours</span>
-            </div>
-            <div class="timer-unit">
-              <div class="timer-box">${this.padNumber(this.timerState.minutes)}</div>
-              <span class="timer-label">Minutes</span>
-            </div>
-            <div class="timer-unit">
-              <div class="timer-box">${this.padNumber(this.timerState.seconds)}</div>
-              <span class="timer-label">Seconds</span>
-            </div>
+      <style>
+        .fsb-container {
+          position: relative; width: 100%; min-height: 300px;
+          display: flex; align-items: center; justify-content: center;
+          background: ${c.background}; background-size: cover; background-position: center;
+          overflow: hidden; border-radius: 8px;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .fsb-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: 1; }
+        .fsb-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; gap: 20px; width: 100%; }
+        .fsb-badge { position: absolute; top: 20px; right: 20px; background: ${c.badge_color}; color: #000; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; z-index: 3; animation: fsb-pulse 2s ease-in-out infinite; }
+        .fsb-title { font-size: clamp(28px,8vw,56px); font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        .fsb-promo { font-size: clamp(14px,3vw,18px); color: rgba(255,255,255,0.95); font-weight: 300; letter-spacing: 1px; }
+        .fsb-timer { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .fsb-unit { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .fsb-box { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); border-radius: 8px; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; color: ${c.primary_color}; }
+        .fsb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.8); font-weight: 600; }
+        .fsb-btn { padding: 14px 44px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; background: ${c.primary_color}; color: #fff; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, box-shadow 0.2s; }
+        .fsb-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+        @keyframes fsb-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+      </style>
+      <div class="fsb-container">
+        <div class="fsb-overlay"></div>
+        <div class="fsb-content">
+          ${c.discount ? html`<div class="fsb-badge">${c.discount}</div>` : ''}
+          <h1 class="fsb-title">${c.title}</h1>
+          <p class="fsb-promo">${c.promo_text}</p>
+          <div class="fsb-timer">
+            <div class="fsb-unit"><div class="fsb-box">${this.pad(this.timerState.hours)}</div><span class="fsb-label">ساعة</span></div>
+            <div class="fsb-unit"><div class="fsb-box">${this.pad(this.timerState.minutes)}</div><span class="fsb-label">دقيقة</span></div>
+            <div class="fsb-unit"><div class="fsb-box">${this.pad(this.timerState.seconds)}</div><span class="fsb-label">ثانية</span></div>
           </div>
-
-          <button class="cta-button" @click="${this.handleButtonClick}">
-            ${this.buttonText || 'Shop Now'}
-          </button>
+          <a class="fsb-btn" href="${c.button_link}">${c.button_text}</a>
         </div>
       </div>
     `;
   }
 }
-
-// declare global {
-//   interface HTMLElementTagNameMap {
-//     'flash-sale-banner': FlashSaleBanner;
-//   }
-// }
