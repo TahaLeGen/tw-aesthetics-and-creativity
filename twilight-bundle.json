@@ -4,11 +4,11 @@
         "en": "Aesthetics and Creativity"
     },
     "description": {
-        "ar": "",
-        "en": ""
+        "ar": null,
+        "en": null
     },
-    "author_email": "c.ilyes@crococoder.tn",
-    "support_url": "",
+    "author_email": "web@care-ksa.com",
+    "support_url": "https://ilyescodes.github.io/aesthetics-and-creativity-bundle/",
     "repository": "https://github.com/TahaLeGen/tw-aesthetics-and-creativity",
     "components": [
         {
@@ -60,10 +60,24 @@
                     "format": "dropdown-list",
                     "label": "عدد البطاقات في الجوال",
                     "icon": "sicon-keyboard_arrow_down",
-                    "selected": [{ "label": "1", "value": 1, "key": "spvm-1" }],
+                    "selected": [
+                        {
+                            "label": "1",
+                            "value": 1,
+                            "key": "spvm-1"
+                        }
+                    ],
                     "options": [
-                        { "label": "1", "value": 1, "key": "spvm-1" },
-                        { "label": "2", "value": 2, "key": "spvm-2" }
+                        {
+                            "label": "1",
+                            "value": 1,
+                            "key": "spvm-1"
+                        },
+                        {
+                            "label": "2",
+                            "value": 2,
+                            "key": "spvm-2"
+                        }
                     ],
                     "source": "Manual",
                     "multichoice": false,
@@ -76,11 +90,29 @@
                     "format": "dropdown-list",
                     "label": "عدد البطاقات في التابلت",
                     "icon": "sicon-keyboard_arrow_down",
-                    "selected": [{ "label": "2", "value": 2, "key": "spvt-2" }],
+                    "selected": [
+                        {
+                            "label": "2",
+                            "value": 2,
+                            "key": "spvt-2"
+                        }
+                    ],
                     "options": [
-                        { "label": "1", "value": 1, "key": "spvt-1" },
-                        { "label": "2", "value": 2, "key": "spvt-2" },
-                        { "label": "3", "value": 3, "key": "spvt-3" }
+                        {
+                            "label": "1",
+                            "value": 1,
+                            "key": "spvt-1"
+                        },
+                        {
+                            "label": "2",
+                            "value": 2,
+                            "key": "spvt-2"
+                        },
+                        {
+                            "label": "3",
+                            "value": 3,
+                            "key": "spvt-3"
+                        }
                     ],
                     "source": "Manual",
                     "multichoice": false,
@@ -93,12 +125,34 @@
                     "format": "dropdown-list",
                     "label": "عدد البطاقات في الشاشة الكبيرة",
                     "icon": "sicon-keyboard_arrow_down",
-                    "selected": [{ "label": "4", "value": 4, "key": "spvd-4" }],
+                    "selected": [
+                        {
+                            "label": "4",
+                            "value": 4,
+                            "key": "spvd-4"
+                        }
+                    ],
                     "options": [
-                        { "label": "2", "value": 2, "key": "spvd-2" },
-                        { "label": "3", "value": 3, "key": "spvd-3" },
-                        { "label": "4", "value": 4, "key": "spvd-4" },
-                        { "label": "5", "value": 5, "key": "spvd-5" }
+                        {
+                            "label": "2",
+                            "value": 2,
+                            "key": "spvd-2"
+                        },
+                        {
+                            "label": "3",
+                            "value": 3,
+                            "key": "spvd-3"
+                        },
+                        {
+                            "label": "4",
+                            "value": 4,
+                            "key": "spvd-4"
+                        },
+                        {
+                            "label": "5",
+                            "value": 5,
+                            "key": "spvd-5"
+                        }
                     ],
                     "source": "Manual",
                     "multichoice": false,
@@ -473,13 +527,39 @@
                     "format": "dropdown-list",
                     "label": "عدد المحاولات المسموحة",
                     "icon": "sicon-keyboard_arrow_down",
-                    "selected": [{ "label": "3", "value": 3, "key": "ma-3" }],
+                    "selected": [
+                        {
+                            "label": "3",
+                            "value": 3,
+                            "key": "ma-3"
+                        }
+                    ],
                     "options": [
-                        { "label": "1", "value": 1, "key": "ma-1" },
-                        { "label": "2", "value": 2, "key": "ma-2" },
-                        { "label": "3", "value": 3, "key": "ma-3" },
-                        { "label": "5", "value": 5, "key": "ma-5" },
-                        { "label": "10", "value": 10, "key": "ma-10" }
+                        {
+                            "label": "1",
+                            "value": 1,
+                            "key": "ma-1"
+                        },
+                        {
+                            "label": "2",
+                            "value": 2,
+                            "key": "ma-2"
+                        },
+                        {
+                            "label": "3",
+                            "value": 3,
+                            "key": "ma-3"
+                        },
+                        {
+                            "label": "5",
+                            "value": 5,
+                            "key": "ma-5"
+                        },
+                        {
+                            "label": "10",
+                            "value": 10,
+                            "key": "ma-10"
+                        }
                     ],
                     "source": "Manual",
                     "multichoice": false,
