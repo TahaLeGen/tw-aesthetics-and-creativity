@@ -1,10 +1,11 @@
-import { LitElement, html } from 'lit';
+import { LitElement, html, svg } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { localizedString, resolveDropdown } from '../../utils/i18n.js';
 
 export interface WheelSection {
   id: number;
   color: string;
-  label: string;
+  label: string | Record<string, string>;
   isGift: boolean;
   promoCode?: string;
 }
@@ -23,23 +24,7 @@ export class LuckySpinWheel extends LitElement {
   protected createRenderRoot() { return this; }
 
   private get cfg() {
-    const rawAttempts = this.config?.['max_attempts'];
-    console.log('[lucky-wheel] raw max_attempts:', JSON.stringify(rawAttempts), typeof rawAttempts);
-    console.log('[lucky-wheel] full config:', JSON.stringify(this.config));
-
-    // Handle all possible shapes the platform might send:
-    // - plain number: 3
-    // - dropdown object: { label: "3", value: 3, key: "..." }
-    // - array of selected items: [{ label: "3", value: 3, key: "..." }]
-    let maxAttempts = 3;
-    if (Array.isArray(rawAttempts) && rawAttempts.length > 0) {
-      maxAttempts = Number(rawAttempts[0]?.value ?? rawAttempts[0]);
-    } else if (typeof rawAttempts === 'object' && rawAttempts !== null) {
-      maxAttempts = Number(rawAttempts.value ?? 3);
-    } else if (rawAttempts !== undefined && rawAttempts !== null) {
-      maxAttempts = Number(rawAttempts);
-    }
-    if (isNaN(maxAttempts)) maxAttempts = 3;
+    const maxAttempts = resolveDropdown(this.config?.['max_attempts'], 3);
 
     const rawSections = this.config?.['sections'];
     const sections = (Array.isArray(rawSections) ? rawSections : [
@@ -52,7 +37,7 @@ export class LuckySpinWheel extends LitElement {
     ]) as WheelSection[];
 
     return {
-      background:   this.config?.['background']   ?? 'radial-gradient(circle at 50% 0%, #2c3e50 0%, #0f171e 100%)',
+      background:   this.config?.['background'] ?? 'radial-gradient(circle at 50% 0%, #2c3e50 0%, #0f171e 100%)',
       max_attempts: maxAttempts,
       sections,
     };
@@ -86,9 +71,8 @@ export class LuckySpinWheel extends LitElement {
     localStorage.setItem('spin_wheel_attempts_used', String(this.attemptsUsed));
 
     const sections = this.cfg.sections;
-    const extraSpin = 360 * 6;
     const randomOffset = Math.floor(Math.random() * 360);
-    this.currentRotation += extraSpin + randomOffset;
+    this.currentRotation += 360 * 6 + randomOffset;
 
     const normalized = (360 - (this.currentRotation % 360)) % 360;
     const sliceSize = 360 / sections.length;
@@ -102,28 +86,29 @@ export class LuckySpinWheel extends LitElement {
   }
 
   private resolvePrize(prize: WheelSection) {
+    const label = localizedString(prize.label);
     if (prize.isGift) {
       this.isGameOver = true;
       this.wonPromoCode = prize.promoCode || '';
-      this.feedbackMessage = `🎉 مبروك! لقد فزت بـ: ${prize.label}!`;
+      this.feedbackMessage = `🎉 مبروك! لقد فزت بـ: ${label}!`;
       localStorage.setItem('spin_wheel_gift_won', 'true');
       localStorage.setItem('spin_wheel_promo_code', this.wonPromoCode);
     } else if (this.attemptsUsed >= this.cfg.max_attempts) {
       this.isGameOver = true;
-      this.feedbackMessage = `❌ انتهت المحاولات. حصلت على ${prize.label}.`;
+      this.feedbackMessage = `❌ انتهت المحاولات. حصلت على ${label}.`;
     } else {
-      this.feedbackMessage = `حصلت على ${prize.label}. حاول مجدداً!`;
+      this.feedbackMessage = `حصلت على ${label}. حاول مجدداً!`;
     }
   }
 
-  private buildWheelSVG(sections: WheelSection[]): string {
+  /** Safe SVG wheel using Lit svg`` tagged template — no innerHTML */
+  private renderWheel(sections: WheelSection[]) {
     const cx = 140, cy = 140, r = 140;
     const total = sections.length;
     const arc = (2 * Math.PI) / total;
     const tr = r * 0.62;
-    let paths = '';
 
-    for (let i = 0; i < total; i++) {
+    const slices = sections.map((sec, i) => {
       const startAngle = i * arc - Math.PI / 2;
       const endAngle   = startAngle + arc;
       const x1 = cx + r * Math.cos(startAngle);
@@ -131,71 +116,93 @@ export class LuckySpinWheel extends LitElement {
       const x2 = cx + r * Math.cos(endAngle);
       const y2 = cy + r * Math.sin(endAngle);
       const largeArc = arc > Math.PI ? 1 : 0;
-
-      paths += `<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${largeArc},1 ${x2},${y2} Z" fill="${sections[i].color}" stroke="#fff" stroke-width="2"/>`;
+      const d = `M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${largeArc},1 ${x2},${y2} Z`;
 
       const midAngle = startAngle + arc / 2;
       const tx = cx + tr * Math.cos(midAngle);
       const ty = cy + tr * Math.sin(midAngle);
       const deg = (midAngle * 180) / Math.PI + 90;
+      const label = localizedString(sec.label);
 
-      paths += `<text x="${tx}" y="${ty}" transform="rotate(${deg},${tx},${ty})" text-anchor="middle" dominant-baseline="middle" font-size="14" font-weight="800" font-family="Segoe UI,Tahoma,Arial,sans-serif" fill="white">${sections[i].label}</text>`;
-    }
+      return svg`
+        <path d="${d}" fill="${sec.color}" stroke="#fff" stroke-width="2"></path>
+        <text
+          x="${tx}" y="${ty}"
+          transform="rotate(${deg},${tx},${ty})"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          font-size="14"
+          font-weight="800"
+          font-family="Segoe UI,Tahoma,Arial,sans-serif"
+          fill="white"
+        >${label}</text>
+      `;
+    });
 
-    paths += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="white" stroke-width="6"/>`;
-    return paths;
+    return svg`
+      <svg class="lw-svg" viewBox="0 0 280 280"
+           style="transform: rotate(${this.currentRotation}deg);"
+           role="img" aria-label="عجلة الحظ">
+        ${slices}
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="white" stroke-width="6"></circle>
+      </svg>
+    `;
   }
 
   render() {
     const { sections, max_attempts, background } = this.cfg;
+    const spinLabel = localizedString(this.config?.['label_spin'], 'دوّر');
+    const attemptsLabel = localizedString(this.config?.['label_attempts'], 'المحاولات');
+    const remainingLabel = localizedString(this.config?.['label_remaining'], 'متبقية');
+    const promoLabel = localizedString(this.config?.['label_promo'], 'كود الخصم الخاص بك');
+    const copyHint = localizedString(this.config?.['label_copy'], 'اضغط للنسخ');
     const isDisabled = this.isGameOver || this.isSpinning;
 
     return html`
       <style>
-        .lw-host { font-family: system-ui,-apple-system,sans-serif; background: ${background}; padding: 2.5rem 1.25rem; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); max-width: 400px; margin: 20px auto; color: #ffffff; display: block; }
-        .lw-wrapper { display: flex; flex-direction: column; align-items: center; position: relative; }
-        .lw-frame { width: 280px; height: 280px; border-radius: 50%; position: relative; box-shadow: 0 0 24px rgba(0,0,0,0.4); }
-        .lw-svg { width: 280px; height: 280px; border-radius: 50%; display: block; transition: transform 5s cubic-bezier(0.15,0.95,0.35,1); }
-        .lw-hub { width: 76px; height: 76px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; background: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 50; cursor: pointer; user-select: none; transition: transform 0.1s ease; border: none; outline: none; }
-        .lw-hub::after { content: "دوّر"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: #2c3e50; }
-        .lw-hub::before { content: ""; position: absolute; width: 0; height: 0; border-style: solid; border-width: 0 14px 22px 14px; border-color: transparent transparent #ffffff transparent; top: -14px; left: 24px; }
-        .lw-hub:hover:not(.lw-hub--disabled) { transform: translate(-50%,-50%) scale(1.04); }
-        .lw-hub:active:not(.lw-hub--disabled) { transform: translate(-50%,-50%) scale(0.96); }
-        .lw-hub--disabled { background: #e0e0e0; cursor: not-allowed; }
-        .lw-hub--disabled::after { color: #95a5a6; }
-        .lw-hub--disabled::before { border-color: transparent transparent #e0e0e0 transparent; }
-        @keyframes lw-tilt { 0%,100% { transform: translate(-50%,-50%) rotate(0deg); } 50% { transform: translate(-50%,-50%) rotate(6deg); } }
-        .lw-hub--tilting { animation: lw-tilt 0.1s ease-in-out infinite; }
-        .lw-dashboard { margin-top: 1.5rem; text-align: center; width: 100%; }
-        .lw-feedback { font-size: 1rem; font-weight: 500; color: #ecf0f1; margin-bottom: 0.5rem; min-height: 1.5rem; }
-        .lw-badge { display: inline-block; padding: 6px 14px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; font-size: 13px; color: #bdc3c7; }
-        .lw-badge strong { color: #f1c40f; font-weight: bold; }
-        .lw-promo { margin-top: 1.25rem; padding: 1rem 1.5rem; background: linear-gradient(135deg,rgba(241,196,15,0.15),rgba(243,156,18,0.1)); border: 1px solid rgba(241,196,15,0.4); border-radius: 14px; text-align: center; }
-        .lw-promo-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-bottom: 0.5rem; }
-        .lw-promo-code { font-size: 1.5rem; font-weight: 900; color: #f1c40f; letter-spacing: 0.15em; cursor: pointer; user-select: all; padding: 0.4rem 1rem; background: rgba(0,0,0,0.25); border-radius: 8px; display: inline-block; transition: background 0.2s; }
-        .lw-promo-code:hover { background: rgba(0,0,0,0.4); }
-        .lw-copy-hint { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 0.4rem; }
+        .lw-host { font-family:system-ui,-apple-system,sans-serif; background:${background}; padding:2.5rem 1.25rem; border-radius:24px; box-shadow:0 20px 50px rgba(0,0,0,0.4); max-width:400px; margin:20px auto; color:#ffffff; display:block; }
+        .lw-wrapper { display:flex; flex-direction:column; align-items:center; position:relative; }
+        .lw-frame { width:280px; height:280px; border-radius:50%; position:relative; box-shadow:0 0 24px rgba(0,0,0,0.4); }
+        .lw-svg { width:280px; height:280px; border-radius:50%; display:block; transition:transform 5s cubic-bezier(0.15,0.95,0.35,1); }
+        .lw-hub { width:76px; height:76px; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:50%; background:#ffffff; box-shadow:0 4px 10px rgba(0,0,0,0.3); z-index:50; cursor:pointer; user-select:none; transition:transform 0.1s ease; border:none; outline:none; font-weight:800; font-size:13px; color:#2c3e50; }
+        .lw-hub::before { content:""; position:absolute; width:0; height:0; border-style:solid; border-width:0 14px 22px 14px; border-color:transparent transparent #ffffff transparent; top:-14px; left:50%; transform:translateX(-50%); }
+        .lw-hub:hover:not(:disabled) { transform:translate(-50%,-50%) scale(1.04); }
+        .lw-hub:active:not(:disabled) { transform:translate(-50%,-50%) scale(0.96); }
+        .lw-hub:disabled { background:#e0e0e0; cursor:not-allowed; color:#95a5a6; }
+        .lw-hub:disabled::before { border-color:transparent transparent #e0e0e0 transparent; }
+        @keyframes lw-tilt { 0%,100% { transform:translate(-50%,-50%) rotate(0deg); } 50% { transform:translate(-50%,-50%) rotate(6deg); } }
+        .lw-hub--tilting { animation:lw-tilt 0.1s ease-in-out infinite; }
+        .lw-dashboard { margin-top:1.5rem; text-align:center; width:100%; }
+        .lw-feedback { font-size:1rem; font-weight:500; color:#ecf0f1; margin-bottom:0.5rem; min-height:1.5rem; }
+        .lw-badge { display:inline-block; padding:6px 14px; background:rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); border-radius:20px; font-size:13px; color:#bdc3c7; }
+        .lw-badge strong { color:#f1c40f; font-weight:bold; }
+        .lw-promo { margin-top:1.25rem; padding:1rem 1.5rem; background:linear-gradient(135deg,rgba(241,196,15,0.15),rgba(243,156,18,0.1)); border:1px solid rgba(241,196,15,0.4); border-radius:14px; text-align:center; }
+        .lw-promo-label { font-size:0.8rem; color:rgba(255,255,255,0.6); margin-bottom:0.5rem; }
+        .lw-promo-code { font-size:1.5rem; font-weight:900; color:#f1c40f; letter-spacing:0.15em; cursor:pointer; user-select:all; padding:0.4rem 1rem; background:rgba(0,0,0,0.25); border-radius:8px; display:inline-block; transition:background 0.2s; border:none; }
+        .lw-promo-code:hover { background:rgba(0,0,0,0.4); }
+        .lw-copy-hint { font-size:0.72rem; color:rgba(255,255,255,0.4); margin-top:0.4rem; }
       </style>
 
       <div class="lw-host" dir="rtl">
         <div class="lw-wrapper">
           <div class="lw-frame" style="position:relative;">
-            <svg class="lw-svg" viewBox="0 0 280 280"
-                 style="transform: rotate(${this.currentRotation}deg);"
-                 .innerHTML="${this.buildWheelSVG(sections)}">
-            </svg>
-            <button class="lw-hub ${isDisabled ? 'lw-hub--disabled' : ''} ${this.pointerTilting ? 'lw-hub--tilting' : ''}"
-                    @click="${this.spin}" ?disabled="${isDisabled}">
+            ${this.renderWheel(sections)}
+            <button
+              class="lw-hub ${this.pointerTilting ? 'lw-hub--tilting' : ''}"
+              aria-label="${spinLabel}"
+              ?disabled="${isDisabled}"
+              @click="${this.spin}">
+              ${spinLabel}
             </button>
           </div>
-          <div class="lw-dashboard">
+          <div class="lw-dashboard" role="status" aria-live="polite">
             <div class="lw-feedback">${this.feedbackMessage}</div>
-            <div class="lw-badge">المحاولات: <strong>${max_attempts - this.attemptsUsed}</strong> / ${max_attempts} متبقية</div>
+            <div class="lw-badge">${attemptsLabel}: <strong>${max_attempts - this.attemptsUsed}</strong> / ${max_attempts} ${remainingLabel}</div>
             ${this.wonPromoCode ? html`
               <div class="lw-promo">
-                <div class="lw-promo-label">كود الخصم الخاص بك</div>
-                <div class="lw-promo-code" @click="${() => navigator.clipboard?.writeText(this.wonPromoCode)}">${this.wonPromoCode}</div>
-                <div class="lw-copy-hint">اضغط للنسخ</div>
+                <div class="lw-promo-label">${promoLabel}</div>
+                <button class="lw-promo-code" aria-label="نسخ الكود ${this.wonPromoCode}" @click="${() => navigator.clipboard?.writeText(this.wonPromoCode)}">${this.wonPromoCode}</button>
+                <div class="lw-copy-hint">${copyHint}</div>
               </div>
             ` : ''}
           </div>
